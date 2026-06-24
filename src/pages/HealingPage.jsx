@@ -1,24 +1,26 @@
 import { useState, useEffect, useRef } from "react";
-
+ 
 // ─── PALETA GENORA ───────────────────────────────────────────────
 const C = {
+  ivory:    "#fdfbf7",
+  ivoryCard:"#f5f2eb",
   navy:    "#040d18",
   navyMid: "#0a1628",
   navyCard:"#0d1f35",
-  cyan:    "#00d4ff",
+  cyan:    "#00a8cc",
   cyanDim: "#00a8cc",
-  gold:    "#c9a84c",
+  gold:    "#a8892f",
   goldDim: "#a8892f",
   white:   "#f0f4ff",
-  gray:    "#8090a8",
-  grayDim: "#4a5568",
+  gray:    "#5a6478",
+  grayDim: "#8a93a5",
 };
-
+ 
 // ─── ESTILOS BASE ────────────────────────────────────────────────
 const base = {
   fontFamily: "'Rajdhani', 'Cormorant Garamond', Georgia, serif",
 };
-
+ 
 // ─── HOOK: INTERSECTION OBSERVER ─────────────────────────────────
 function useFadeIn() {
   const ref = useRef(null);
@@ -35,7 +37,7 @@ function useFadeIn() {
   }, []);
   return [ref, visible];
 }
-
+ 
 // ─── COMPONENTE: FADE WRAPPER ────────────────────────────────────
 function Fade({ children, delay = 0, style = {} }) {
   const [ref, visible] = useFadeIn();
@@ -50,7 +52,7 @@ function Fade({ children, delay = 0, style = {} }) {
     </div>
   );
 }
-
+ 
 // ─── COMPONENTE: LABEL CYAN ───────────────────────────────────────
 function Label({ children }) {
   return (
@@ -65,7 +67,7 @@ function Label({ children }) {
     }}>{children}</p>
   );
 }
-
+ 
 // ─── COMPONENTE: DIVISOR ─────────────────────────────────────────
 function Divider() {
   return (
@@ -77,16 +79,15 @@ function Divider() {
     }} />
   );
 }
-
+ 
 // ─── COMPONENTE: CARD ─────────────────────────────────────────────
 function Card({ children, style = {} }) {
   return (
     <div style={{
-      background: `linear-gradient(135deg, rgba(13,31,53,0.9) 0%, rgba(10,22,40,0.95) 100%)`,
-      border: `1px solid rgba(0,212,255,0.12)`,
+      background: C.ivoryCard,
+      border: `1px solid rgba(4,13,24,0.08)`,
       borderRadius: "1rem",
       padding: "2rem",
-      backdropFilter: "blur(12px)",
       position: "relative",
       ...style,
     }}>
@@ -97,13 +98,13 @@ function Card({ children, style = {} }) {
         borderTop: `1.5px solid ${C.cyan}`,
         borderLeft: `1.5px solid ${C.cyan}`,
         borderTopLeftRadius: "1rem",
-        opacity: 0.5,
+        opacity: 0.6,
       }} />
       {children}
     </div>
   );
 }
-
+ 
 // ─── COMPONENTE: BOTÓN PRIMARIO ───────────────────────────────────
 function BtnPrimary({ children, onClick }) {
   const [hover, setHover] = useState(false);
@@ -116,12 +117,10 @@ function BtnPrimary({ children, onClick }) {
         position: "relative",
         display: "inline-block",
         padding: "1rem 2.5rem",
-        background: hover
-          ? `linear-gradient(135deg, ${C.cyan}, ${C.cyanDim})`
-          : "rgba(0,212,255,0.04)",
-        border: `1.5px solid ${C.cyan}`,
+        background: hover ? C.navyMid : C.navy,
+        border: `1.5px solid ${C.navy}`,
         borderRadius: "3rem",
-        color: hover ? C.navy : C.cyan,
+        color: C.ivory,
         fontFamily: "'Rajdhani', sans-serif",
         fontSize: "0.85rem",
         fontWeight: 700,
@@ -130,8 +129,8 @@ function BtnPrimary({ children, onClick }) {
         cursor: "pointer",
         transition: "all 0.35s ease",
         boxShadow: hover
-          ? `0 0 36px rgba(0,212,255,0.4), inset 0 0 18px rgba(255,255,255,0.25)`
-          : `0 0 18px rgba(0,212,255,0.08)`,
+          ? `0 6px 24px rgba(4,13,24,0.25)`
+          : `0 3px 12px rgba(4,13,24,0.12)`,
         overflow: "hidden",
       }}
     >
@@ -139,7 +138,7 @@ function BtnPrimary({ children, onClick }) {
     </button>
   );
 }
-
+ 
 // ─── COMPONENTE: BOTÓN SECUNDARIO ────────────────────────────────
 function BtnSecondary({ children, onClick }) {
   const [hover, setHover] = useState(false);
@@ -155,7 +154,7 @@ function BtnSecondary({ children, onClick }) {
         padding: "0.85rem 0.25rem",
         background: "transparent",
         border: "none",
-        color: hover ? C.white : `rgba(240,244,255,0.6)`,
+        color: hover ? C.navy : C.gray,
         fontFamily: "'Rajdhani', sans-serif",
         fontSize: "0.8rem",
         fontWeight: 600,
@@ -163,7 +162,7 @@ function BtnSecondary({ children, onClick }) {
         textTransform: "uppercase",
         cursor: "pointer",
         transition: "all 0.3s ease",
-        borderBottom: `1px solid ${hover ? C.cyan : "rgba(240,244,255,0.2)"}`,
+        borderBottom: `1px solid ${hover ? C.cyan : "rgba(4,13,24,0.2)"}`,
         borderRadius: 0,
       }}
     >
@@ -171,11 +170,11 @@ function BtnSecondary({ children, onClick }) {
     </button>
   );
 }
-
+ 
 // ════════════════════════════════════════════════════════════════
 // SECCIONES
 // ════════════════════════════════════════════════════════════════
-
+ 
 // S1: HERO
 // Esfera de geometría sagrada — "Plantilla del ADN original" en líneas de luz finas
 function SacredSphere() {
@@ -186,7 +185,7 @@ function SacredSphere() {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, []);
-
+ 
   return (
     <div style={{
       position: "relative",
@@ -194,34 +193,35 @@ function SacredSphere() {
       height: "min(420px, 80vw)",
       display: "flex", alignItems: "center", justifyContent: "center",
     }}>
-      {/* Resplandor esférico de fondo */}
+      {/* Resplandor esférico de fondo — blanco-champagne */}
       <div style={{
         position: "absolute", inset: "-15%",
         borderRadius: "50%",
-        background: `radial-gradient(circle, rgba(0,212,255,0.16) 0%, rgba(0,212,255,0.04) 45%, transparent 75%)`,
+        background: `radial-gradient(circle, rgba(255,250,240,0.7) 0%, rgba(232,221,196,0.18) 45%, transparent 75%)`,
         filter: "blur(2px)",
       }} />
       <div style={{
         position: "absolute", inset: "8%",
         borderRadius: "50%",
-        boxShadow: `0 0 80px 10px rgba(0,212,255,0.12), inset 0 0 60px rgba(0,212,255,0.06)`,
+        boxShadow: `0 0 70px 14px rgba(232,221,196,0.35), inset 0 0 50px rgba(255,250,240,0.5)`,
+        background: "rgba(255,253,248,0.4)",
       }} />
-
+ 
       <svg viewBox="0 0 400 400" style={{ width: "100%", height: "100%", position: "relative", zIndex: 2 }}>
         <defs>
           <radialGradient id="sphereGlow" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stopColor={C.cyan} stopOpacity="0.25" />
-            <stop offset="100%" stopColor={C.cyan} stopOpacity="0" />
+            <stop offset="0%" stopColor="#fffaf0" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#fffaf0" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="lineGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={C.cyan} stopOpacity="0.9" />
-            <stop offset="100%" stopColor={C.gold} stopOpacity="0.5" />
+            <stop offset="0%" stopColor={C.navy} stopOpacity="0.22" />
+            <stop offset="100%" stopColor={C.gold} stopOpacity="0.4" />
           </linearGradient>
         </defs>
-
+ 
         <circle cx="200" cy="200" r="160" fill="url(#sphereGlow)" />
-
-        {/* Anillos de geometría — elipses rotadas, líneas ultra-finas */}
+ 
+        {/* Anillos de geometría — elipses rotadas, líneas ultra-finas oscuras */}
         <g style={{ transformOrigin: "200px 200px", transform: `rotate(${rotate}deg)` }}>
           {[0, 30, 60, 90, 120, 150].map((deg) => (
             <ellipse
@@ -229,21 +229,21 @@ function SacredSphere() {
               cx="200" cy="200" rx="150" ry="62"
               fill="none"
               stroke="url(#lineGlow)"
-              strokeWidth="0.6"
-              opacity="0.55"
+              strokeWidth="0.7"
+              opacity="0.7"
               transform={`rotate(${deg} 200 200)`}
             />
           ))}
         </g>
-
+ 
         {/* Anillo contrario, más lento */}
         <g style={{ transformOrigin: "200px 200px", transform: `rotate(${-rotate * 0.6}deg)` }}>
-          <circle cx="200" cy="200" r="120" fill="none" stroke={C.cyan} strokeWidth="0.4" opacity="0.35" />
-          <circle cx="200" cy="200" r="90" fill="none" stroke={C.gold} strokeWidth="0.4" opacity="0.3" />
+          <circle cx="200" cy="200" r="120" fill="none" stroke={C.navy} strokeWidth="0.5" opacity="0.18" />
+          <circle cx="200" cy="200" r="90" fill="none" stroke={C.gold} strokeWidth="0.5" opacity="0.35" />
         </g>
-
-        {/* Núcleo central — puntos de luz tipo bio-fotones */}
-        <circle cx="200" cy="200" r="3" fill={C.cyan} opacity="0.9">
+ 
+        {/* Núcleo central — puntos sutiles tipo bio-fotones */}
+        <circle cx="200" cy="200" r="3" fill={C.gold} opacity="0.8">
           <animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite" />
         </circle>
         {[...Array(8)].map((_, i) => {
@@ -255,8 +255,8 @@ function SacredSphere() {
               cx={200 + r * Math.cos(a + rotate * 0.02)}
               cy={200 + r * Math.sin(a + rotate * 0.02)}
               r="1.4"
-              fill={i % 2 === 0 ? C.cyan : C.gold}
-              opacity="0.7"
+              fill={i % 2 === 0 ? C.navy : C.gold}
+              opacity={i % 2 === 0 ? 0.3 : 0.6}
             />
           );
         })}
@@ -264,11 +264,11 @@ function SacredSphere() {
     </div>
   );
 }
-
+ 
 function Hero() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
-
+ 
   return (
     <section style={{
       minHeight: "100vh",
@@ -277,95 +277,102 @@ function Hero() {
       padding: "2rem",
       position: "relative",
       overflow: "hidden",
+      background: C.navy,
     }}>
-      {/* Fondo: azul noche absoluto + halo sutil */}
+      {/* Video de fondo — bucle cinematográfico GENORA */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: "absolute",
+          top: "50%", left: "50%",
+          minWidth: "100%", minHeight: "100%",
+          width: "auto", height: "auto",
+          transform: "translate(-50%, -50%)",
+          objectFit: "cover",
+          zIndex: 0,
+        }}
+      >
+        <source src="/videos/genora-hero-loop.mp4" type="video/mp4" />
+      </video>
+ 
+      {/* Scrim: degradado marfil para anclar el texto y mantener legibilidad */}
       <div style={{
-        position: "absolute", inset: 0, zIndex: 0,
-        background: `radial-gradient(ellipse 70% 60% at 75% 45%, rgba(0,120,180,0.12) 0%, transparent 65%),
-                     radial-gradient(ellipse 40% 35% at 10% 85%, rgba(201,168,76,0.04) 0%, transparent 60%),
-                     ${C.navy}`,
+        position: "absolute", inset: 0, zIndex: 1,
+        background: `linear-gradient(180deg,
+          rgba(253,251,247,0.15) 0%,
+          rgba(253,251,247,0.55) 55%,
+          rgba(253,251,247,0.92) 100%)`,
       }} />
-
-      {/* Layout asimétrico: texto | esfera */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 1,
+        background: `radial-gradient(ellipse 65% 55% at 50% 68%, rgba(253,251,247,0.85) 0%, transparent 70%)`,
+      }} />
+ 
+      {/* Contenido superpuesto, centrado, estilo Gaia */}
       <div style={{
         position: "relative", zIndex: 2,
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "3rem",
-        maxWidth: "1280px",
+        maxWidth: "780px",
         margin: "0 auto",
         width: "100%",
+        textAlign: "center",
+        paddingTop: "8vh",
       }}>
-        {/* Columna texto */}
-        <div style={{ flex: "1 1 480px", minWidth: "300px", maxWidth: "620px" }}>
-          <div style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(-12px)",
-            transition: "all 0.8s ease",
-          }}>
-            <Label>GENORA HEALING™ · SISTEMA MAESTRO DE RECALIBRACIÓN CONSCIENTE</Label>
-          </div>
-
-          <h1 style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(2.1rem, 5vw, 3.8rem)",
-            fontWeight: 400,
-            lineHeight: 1.18,
-            color: C.white,
-            margin: "0 0 1.5rem",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(20px)",
-            transition: "all 1s ease 0.2s",
-            letterSpacing: "-0.01em",
-          }}>
-            No viniste roto.<br />Viniste programado.<br />
-            <em style={{ fontStyle: "italic", color: C.white, fontSize: "0.85em" }}>
-              Existe una versión original de ti esperando ser recordada.
-            </em>
-          </h1>
-
-          <p style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(1rem, 1.6vw, 1.15rem)",
-            color: `rgba(240,244,255,0.7)`,
-            lineHeight: 1.85,
-            maxWidth: "560px",
-            margin: "0 0 2.8rem",
-            opacity: loaded ? 1 : 0,
-            transition: "all 0.9s ease 0.6s",
-          }}>
-            El potencial humano es mucho mayor de lo que hemos recordado. GENORA acompaña
-            procesos de recalibración consciente de códigos que permiten expresar niveles más
-            elevados de coherencia, consciencia, creación y expansión. No se trata de convertirse
-            en alguien diferente; se trata de recordar lo que siempre estuvo en ti.
-          </p>
-
-          <div style={{
-            display: "flex", gap: "1rem", flexWrap: "wrap",
-            opacity: loaded ? 1 : 0,
-            transition: "all 0.9s ease 0.85s",
-          }}>
-            <BtnPrimary>Descubrir el Método GENORA™</BtnPrimary>
-            <BtnSecondary>Acceder al Ecosistema App</BtnSecondary>
-          </div>
-        </div>
-
-        {/* Columna esfera */}
         <div style={{
-          flex: "1 1 380px",
-          minWidth: "280px",
-          display: "flex",
-          justifyContent: "center",
           opacity: loaded ? 1 : 0,
-          transform: loaded ? "scale(1)" : "scale(0.92)",
-          transition: "all 1.2s ease 0.3s",
+          transform: loaded ? "translateY(0)" : "translateY(-12px)",
+          transition: "all 0.8s ease",
         }}>
-          <SacredSphere />
+          <Label>GENORA HEALING™ · SISTEMA MAESTRO DE RECALIBRACIÓN CONSCIENTE</Label>
+        </div>
+ 
+        <h1 style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: "clamp(2.1rem, 5.5vw, 4rem)",
+          fontWeight: 400,
+          lineHeight: 1.18,
+          color: C.navy,
+          margin: "0 0 1.5rem",
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? "translateY(0)" : "translateY(20px)",
+          transition: "all 1s ease 0.2s",
+          letterSpacing: "-0.01em",
+          textShadow: "0 2px 24px rgba(253,251,247,0.9)",
+        }}>
+          No viniste roto.<br />Viniste programado.<br />
+          <em style={{ fontStyle: "italic", color: C.navy, fontSize: "0.85em" }}>
+            Existe una versión original de ti esperando ser recordada.
+          </em>
+        </h1>
+ 
+        <p style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
+          color: `rgba(4,13,24,0.78)`,
+          lineHeight: 1.85,
+          maxWidth: "600px",
+          margin: "0 auto 2.8rem",
+          opacity: loaded ? 1 : 0,
+          transition: "all 0.9s ease 0.6s",
+        }}>
+          El potencial humano es mucho mayor de lo que hemos recordado. GENORA acompaña
+          procesos de recalibración consciente de códigos que permiten expresar niveles más
+          elevados de coherencia, consciencia, creación y expansión. No se trata de convertirse
+          en alguien diferente; se trata de recordar lo que siempre estuvo en ti.
+        </p>
+ 
+        <div style={{
+          display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center",
+          opacity: loaded ? 1 : 0,
+          transition: "all 0.9s ease 0.85s",
+        }}>
+          <BtnPrimary>Descubrir el Método GENORA™</BtnPrimary>
+          <BtnSecondary>Acceder al Ecosistema App</BtnSecondary>
         </div>
       </div>
-
+ 
       {/* Scroll indicator */}
       <div style={{
         position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)",
@@ -377,26 +384,26 @@ function Hero() {
     </section>
   );
 }
-
+ 
 // S2: NO VINISTE ROTO, VINISTE PROGRAMADO
 function ElProblema() {
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: `linear-gradient(180deg, ${C.navy} 0%, ${C.navyMid} 100%)`,
+      background: C.ivoryCard,
       position: "relative",
       overflow: "hidden",
     }}>
       {/* Acento geométrico: línea vertical fina descendiendo */}
       <div style={{
         position: "absolute", top: 0, right: "8%", width: "1px", height: "100%",
-        background: `linear-gradient(180deg, transparent, rgba(0,212,255,0.12), transparent)`,
+        background: `linear-gradient(180deg, transparent, rgba(4,13,24,0.1), transparent)`,
       }} />
       <div style={{
         position: "absolute", top: "12%", right: "calc(8% - 3px)", width: "7px", height: "7px",
-        borderRadius: "50%", border: `1px solid rgba(0,212,255,0.3)`,
+        borderRadius: "50%", border: `1px solid rgba(0,168,204,0.4)`,
       }} />
-
+ 
       <div style={{ maxWidth: "760px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         <Fade>
           <Label>El Punto de Partida</Label>
@@ -404,54 +411,54 @@ function ElProblema() {
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontSize: "clamp(2rem, 4vw, 3rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             lineHeight: 1.2,
             margin: "0 0 2.5rem",
           }}>
             No viniste roto.<br />Viniste programado.
           </h2>
         </Fade>
-
+ 
         <Fade delay={0.15}>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(240,244,255,0.75)`, lineHeight: 1.9, marginBottom: "1.5rem" }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(4,13,24,0.78)`, lineHeight: 1.9, marginBottom: "1.5rem" }}>
             Durante años nos enseñaron que debíamos corregirnos. Sanar heridas. Superar traumas.
             Combatir síntomas. Adaptarnos a las circunstancias.
           </p>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(240,244,255,0.75)`, lineHeight: 1.9, marginBottom: "1.5rem" }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(4,13,24,0.78)`, lineHeight: 1.9, marginBottom: "1.5rem" }}>
             Pero ¿qué ocurre cuando, a pesar de todo el trabajo realizado, los mismos patrones
             continúan apareciendo? Las mismas relaciones. Las mismas limitaciones. Los mismos bloqueos.
           </p>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(240,244,255,0.75)`, lineHeight: 1.9, marginBottom: "2.5rem" }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(4,13,24,0.78)`, lineHeight: 1.9, marginBottom: "2.5rem" }}>
             La respuesta no siempre está en lo que te sucede. Muchas veces está en la información
             que sostiene aquello que te sucede.
           </p>
         </Fade>
-
+ 
         <Fade delay={0.3}>
           <div style={{
             borderLeft: `3px solid ${C.cyan}`,
             paddingLeft: "2rem",
             margin: "2.5rem 0",
           }}>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", color: C.white, lineHeight: 1.8, fontWeight: 600, marginBottom: "1rem" }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", color: C.navy, lineHeight: 1.8, fontWeight: 600, marginBottom: "1rem" }}>
               No eres el problema.
             </p>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(240,244,255,0.8)`, lineHeight: 1.9, marginBottom: "1rem" }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(4,13,24,0.85)`, lineHeight: 1.9, marginBottom: "1rem" }}>
               La información desde la cual operas es el problema.
             </p>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem", color: `rgba(240,244,255,0.7)`, lineHeight: 1.9 }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem", color: `rgba(4,13,24,0.7)`, lineHeight: 1.9 }}>
               Cada pensamiento, cada emoción, cada reacción y cada decisión es el resultado de
               una arquitectura interna que opera silenciosamente en tu vida. Y cuando esa
               información cambia, todo comienza a reorganizarse.
             </p>
           </div>
         </Fade>
-
+ 
         <Fade delay={0.45}>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: C.cyan, lineHeight: 1.8, fontWeight: 600, marginBottom: "0.5rem" }}>
             GENORA trabaja en esa información.
           </p>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", color: `rgba(240,244,255,0.6)`, lineHeight: 1.8 }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", color: `rgba(4,13,24,0.55)`, lineHeight: 1.8 }}>
             Porque cuando la raíz se reorganiza, la expresión externa también cambia.
           </p>
         </Fade>
@@ -459,13 +466,13 @@ function ElProblema() {
     </section>
   );
 }
-
+ 
 // S3: LA FILOSOFÍA
 function LaFilosofia() {
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: `radial-gradient(ellipse 70% 50% at 30% 50%, rgba(0,80,120,0.12) 0%, transparent 70%), ${C.navyMid}`,
+      background: C.ivory,
     }}>
       <div style={{ maxWidth: "960px", margin: "0 auto" }}>
         <Fade>
@@ -474,21 +481,21 @@ function LaFilosofia() {
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             marginBottom: "0.5rem",
           }}>
             ¿Qué es GENORA?
           </h2>
           <Divider />
         </Fade>
-
+ 
         <Fade delay={0.1}>
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(1.1rem, 2vw, 1.3rem)",
-            color: `rgba(240,244,255,0.85)`,
+            color: `rgba(4,13,24,0.82)`,
             lineHeight: 1.9,
-            borderLeft: `2px solid rgba(0,212,255,0.3)`,
+            borderLeft: `2px solid rgba(0,168,204,0.4)`,
             paddingLeft: "1.5rem",
             marginBottom: "3.5rem",
           }}>
@@ -499,43 +506,43 @@ function LaFilosofia() {
             la experiencia cambia.
           </p>
         </Fade>
-
+ 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
           <Fade delay={0.15}>
             <Card>
               <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: C.cyan, textTransform: "uppercase", marginBottom: "0.75rem" }}>Filosofía</p>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: C.white, marginBottom: "1rem" }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: C.navy, marginBottom: "1rem" }}>
                 Diseño Original Humano®
               </h3>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", color: `rgba(240,244,255,0.7)`, lineHeight: 1.85 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", color: `rgba(4,13,24,0.72)`, lineHeight: 1.85 }}>
                 La arquitectura multidimensional de consciencia, información y potencial con la que
                 cada ser humano llega a la experiencia. Esta arquitectura no se crea — se recuerda.
                 Existe más de ti esperando emerger.
               </p>
             </Card>
           </Fade>
-
+ 
           <Fade delay={0.25}>
             <Card>
               <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: C.gold, textTransform: "uppercase", marginBottom: "0.75rem" }}>Principio Organizador</p>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: C.white, marginBottom: "1rem" }}>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: C.navy, marginBottom: "1rem" }}>
                 Supraconsciencia®
               </h3>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", color: `rgba(240,244,255,0.7)`, lineHeight: 1.85 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", color: `rgba(4,13,24,0.72)`, lineHeight: 1.85 }}>
                 La expresión más elevada del Diseño Original Humano. A medida que recuperas
                 coherencia con esta dimensión superior de ti, se amplían tu creación, tu bienestar,
                 tu percepción y tu capacidad de expansión.
               </p>
             </Card>
           </Fade>
-
+ 
           <Fade delay={0.35}>
             <Card>
-              <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: "#a78bfa", textTransform: "uppercase", marginBottom: "0.75rem" }}>Trayectoria</p>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: C.white, marginBottom: "1rem" }}>
+              <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: "#6d4ec2", textTransform: "uppercase", marginBottom: "0.75rem" }}>Trayectoria</p>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: C.navy, marginBottom: "1rem" }}>
                 13 Años de Investigación y Desarrollo
               </h3>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", color: `rgba(240,244,255,0.7)`, lineHeight: 1.85 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem", color: `rgba(4,13,24,0.72)`, lineHeight: 1.85 }}>
                 Pamela Cadavid desarrolló el Sistema Maestro GENORA a partir de 13 años de
                 investigación, práctica clínica y exploración de los campos de información que
                 influyen sobre la experiencia humana. Cada sesión es cocreación: el método abre
@@ -548,7 +555,7 @@ function LaFilosofia() {
     </section>
   );
 }
-
+ 
 // S4: PRINCIPIOS
 const principios = [
   {
@@ -577,12 +584,12 @@ const principios = [
     body: "La expansión no es algo que debas forzar. Es el estado natural del ser cuando recupera coherencia con su Diseño Original.",
   },
 ];
-
+ 
 function Principios() {
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: C.navy,
+      background: C.ivoryCard,
     }}>
       <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
         <Fade>
@@ -591,19 +598,19 @@ function Principios() {
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(2rem, 4vw, 3rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             marginBottom: "3rem",
           }}>
             Los Cinco Principios Maestros de GENORA®
           </h2>
         </Fade>
-
+ 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
           {principios.map((p, i) => (
             <Fade key={p.num} delay={i * 0.1}>
               <div style={{
                 padding: "2rem",
-                borderTop: `2px solid rgba(0,212,255,0.2)`,
+                borderTop: `2px solid rgba(0,168,204,0.35)`,
                 position: "relative",
                 height: "100%",
               }}>
@@ -611,7 +618,7 @@ function Principios() {
                   fontFamily: "'Rajdhani', sans-serif",
                   fontSize: "3.5rem",
                   fontWeight: 700,
-                  color: "rgba(0,212,255,0.08)",
+                  color: "rgba(4,13,24,0.06)",
                   position: "absolute",
                   top: "0.5rem",
                   right: "1.5rem",
@@ -622,14 +629,14 @@ function Principios() {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "1.25rem",
                   fontWeight: 600,
-                  color: C.white,
+                  color: C.navy,
                   marginBottom: "1rem",
                   paddingRight: "2.5rem",
                 }}>{p.title}</h3>
                 <p style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "1rem",
-                  color: `rgba(240,244,255,0.65)`,
+                  color: `rgba(4,13,24,0.68)`,
                   lineHeight: 1.85,
                 }}>{p.body}</p>
               </div>
@@ -640,7 +647,7 @@ function Principios() {
     </section>
   );
 }
-
+ 
 // S4.5: MANIFIESTO — "Lo que creemos"
 const creencias = [
   "Creemos que existe más de nosotros esperando emerger.",
@@ -650,12 +657,12 @@ const creencias = [
   "Creemos que la coherencia transforma.",
   "Creemos que los dones naturales del ser humano no necesitan ser creados. Necesitan ser recordados.",
 ];
-
+ 
 function Manifiesto() {
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: `radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,212,255,0.05) 0%, transparent 60%), ${C.navyMid}`,
+      background: C.ivory,
       textAlign: "center",
     }}>
       <div style={{ maxWidth: "720px", margin: "0 auto" }}>
@@ -665,30 +672,30 @@ function Manifiesto() {
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(1.9rem, 4vw, 2.8rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             lineHeight: 1.3,
             marginBottom: "3rem",
           }}>
             No concebimos la transformación humana<br />como un proceso de corrección.
           </h2>
         </Fade>
-
+ 
         <div style={{ display: "flex", flexDirection: "column", gap: "1.4rem", marginBottom: "3rem" }}>
           {creencias.map((c, i) => (
             <Fade key={i} delay={i * 0.08}>
               <p style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
-                color: `rgba(240,244,255,0.75)`,
+                color: `rgba(4,13,24,0.78)`,
                 lineHeight: 1.7,
                 fontStyle: "italic",
               }}>{c}</p>
             </Fade>
           ))}
         </div>
-
+ 
         <Fade delay={0.5}>
-          <div style={{ borderTop: "1px solid rgba(0,212,255,0.12)", paddingTop: "2rem" }}>
+          <div style={{ borderTop: "1px solid rgba(0,168,204,0.25)", paddingTop: "2rem" }}>
             <p style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "1.2rem",
@@ -705,7 +712,7 @@ function Manifiesto() {
     </section>
   );
 }
-
+ 
 // S5: LOS 5 PASOS
 const pasos = [
   {
@@ -734,14 +741,14 @@ const pasos = [
     body: "El proceso no termina en la sesión — termina cuando la nueva coherencia se convierte en tu forma natural de operar. Integramos la recalibración en tu vida cotidiana: tu creación, tu bienestar, tu expansión. Esa es la Emergencia del Potencial Humano®.",
   },
 ];
-
+ 
 function ElCamino() {
   const [active, setActive] = useState(0);
-
+ 
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: `radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,168,76,0.05) 0%, transparent 65%), ${C.navyMid}`,
+      background: C.ivoryCard,
     }}>
       <div style={{ maxWidth: "960px", margin: "0 auto" }}>
         <Fade>
@@ -750,7 +757,7 @@ function ElCamino() {
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(2rem, 4vw, 3rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             marginBottom: "0.5rem",
           }}>
             Cinco Pasos hacia tu Recalibración
@@ -758,14 +765,14 @@ function ElCamino() {
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1.15rem",
-            color: `rgba(240,244,255,0.55)`,
+            color: `rgba(4,13,24,0.6)`,
             fontStyle: "italic",
             marginBottom: "3rem",
           }}>
             Un recorrido que no promete atajos — promete coherencia real.
           </p>
         </Fade>
-
+ 
         {/* Lista de pasos */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
           {pasos.map((p, i) => (
@@ -773,7 +780,7 @@ function ElCamino() {
               <div
                 onClick={() => setActive(active === i ? -1 : i)}
                 style={{
-                  borderBottom: `1px solid rgba(0,212,255,0.1)`,
+                  borderBottom: `1px solid rgba(4,13,24,0.1)`,
                   padding: "1.75rem 0",
                   cursor: "pointer",
                 }}
@@ -792,7 +799,7 @@ function ElCamino() {
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: "1.3rem",
                     fontWeight: active === i ? 600 : 400,
-                    color: active === i ? C.white : `rgba(240,244,255,0.65)`,
+                    color: active === i ? C.navy : `rgba(4,13,24,0.62)`,
                     flex: 1,
                     transition: "all 0.3s",
                   }}>{p.title}</h3>
@@ -803,7 +810,7 @@ function ElCamino() {
                     transform: active === i ? "rotate(45deg)" : "rotate(0deg)",
                   }}>+</span>
                 </div>
-
+ 
                 {active === i && (
                   <div style={{
                     paddingLeft: "3.5rem",
@@ -813,7 +820,7 @@ function ElCamino() {
                     <p style={{
                       fontFamily: "'Cormorant Garamond', serif",
                       fontSize: "1.1rem",
-                      color: `rgba(240,244,255,0.7)`,
+                      color: `rgba(4,13,24,0.68)`,
                       lineHeight: 1.9,
                     }}>{p.body}</p>
                   </div>
@@ -822,14 +829,14 @@ function ElCamino() {
             </Fade>
           ))}
         </div>
-
+ 
         {/* Curva de progreso */}
         <Fade delay={0.3}>
           <div style={{
             marginTop: "4rem",
             padding: "2rem",
-            background: "rgba(0,212,255,0.03)",
-            border: "1px solid rgba(0,212,255,0.08)",
+            background: C.ivory,
+            border: "1px solid rgba(4,13,24,0.08)",
             borderRadius: "1rem",
           }}>
             <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: C.cyan, textTransform: "uppercase", marginBottom: "0.75rem" }}>
@@ -842,7 +849,7 @@ function ElCamino() {
                   <stop offset="100%" stopColor={C.cyan} stopOpacity="1" />
                 </linearGradient>
                 <linearGradient id="fillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={C.cyan} stopOpacity="0.12" />
+                  <stop offset="0%" stopColor={C.cyan} stopOpacity="0.16" />
                   <stop offset="100%" stopColor={C.cyan} stopOpacity="0" />
                 </linearGradient>
               </defs>
@@ -863,7 +870,7 @@ function ElCamino() {
                 </g>
               ))}
             </svg>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: `rgba(240,244,255,0.45)`, textAlign: "center", marginTop: "0.5rem", fontStyle: "italic" }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: `rgba(4,13,24,0.5)`, textAlign: "center", marginTop: "0.5rem", fontStyle: "italic" }}>
               Visualización de la estabilización de coherencia a medida que se avanza en el proceso.
             </p>
           </div>
@@ -872,27 +879,27 @@ function ElCamino() {
     </section>
   );
 }
-
+ 
 // S6: VOZ DE PAMELA
 function VozDePamela() {
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: C.navy,
+      background: C.ivory,
       textAlign: "center",
     }}>
       <div style={{ maxWidth: "720px", margin: "0 auto" }}>
         <Fade>
           <div style={{
             width: "84px", height: "84px", borderRadius: "50%",
-            border: `1.5px solid rgba(0,212,255,0.3)`,
+            border: `1.5px solid rgba(0,168,204,0.35)`,
             margin: "0 auto 1.5rem",
-            background: "rgba(0,212,255,0.04)",
+            background: C.ivoryCard,
             display: "flex", alignItems: "center", justifyContent: "center",
             position: "relative",
           }}>
             {/* Placeholder foto — reemplazar con <img src="/pamela.jpg" style={{width:"100%",height:"100%",borderRadius:"50%",objectFit:"cover"}} /> cuando tengas la foto */}
-            <svg viewBox="0 0 60 60" style={{ width: "44px", height: "44px", opacity: 0.5 }}>
+            <svg viewBox="0 0 60 60" style={{ width: "44px", height: "44px", opacity: 0.6 }}>
               <circle cx="30" cy="30" r="22" fill="none" stroke={C.cyan} strokeWidth="0.6" />
               <circle cx="30" cy="30" r="14" fill="none" stroke={C.gold} strokeWidth="0.6" />
               <circle cx="30" cy="30" r="2" fill={C.cyan} />
@@ -909,13 +916,13 @@ function VozDePamela() {
             Pamela Cadavid · Creadora del Sistema Maestro GENORA® · Arquitecta del Diseño Original
           </p>
         </Fade>
-
+ 
         <Fade delay={0.15}>
           <blockquote style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             lineHeight: 1.5,
             fontStyle: "italic",
             margin: "0 0 2rem",
@@ -928,21 +935,21 @@ function VozDePamela() {
             fontFamily: "'Rajdhani', sans-serif",
             fontSize: "0.75rem",
             letterSpacing: "0.2em",
-            color: `rgba(240,244,255,0.4)`,
+            color: `rgba(4,13,24,0.45)`,
             textTransform: "uppercase",
             marginBottom: "2.5rem",
           }}>— Pamela Cadavid</p>
         </Fade>
-
+ 
         <Fade delay={0.3}>
           <div style={{
-            borderTop: "1px solid rgba(0,212,255,0.1)",
+            borderTop: "1px solid rgba(0,168,204,0.18)",
             paddingTop: "2rem",
           }}>
             <p style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "1.1rem",
-              color: `rgba(240,244,255,0.65)`,
+              color: `rgba(4,13,24,0.7)`,
               lineHeight: 1.9,
             }}>
               Desarrollé el Sistema Maestro GENORA® después de 13 años de investigación, práctica
@@ -953,7 +960,7 @@ function VozDePamela() {
             <p style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "1.05rem",
-              color: `rgba(240,244,255,0.45)`,
+              color: `rgba(4,13,24,0.5)`,
               lineHeight: 1.8,
               marginTop: "1rem",
               fontStyle: "italic",
@@ -966,19 +973,19 @@ function VozDePamela() {
     </section>
   );
 }
-
+ 
 // S6.5: PRENSA Y MEDIOS (placeholder — preparada para menciones futuras)
 const mediosPlaceholder = [
   "MEDIO", "PUBLICACIÓN", "REVISTA", "PODCAST", "ENTREVISTA", "ALIANZA",
 ];
-
+ 
 function PrensaYMedios() {
   return (
     <section style={{
       padding: "4.5rem 1.5rem",
-      background: C.navyMid,
-      borderTop: "1px solid rgba(0,212,255,0.06)",
-      borderBottom: "1px solid rgba(0,212,255,0.06)",
+      background: C.ivoryCard,
+      borderTop: "1px solid rgba(4,13,24,0.06)",
+      borderBottom: "1px solid rgba(4,13,24,0.06)",
     }}>
       <div style={{ maxWidth: "1040px", margin: "0 auto", textAlign: "center" }}>
         <Fade>
@@ -986,7 +993,7 @@ function PrensaYMedios() {
             fontFamily: "'Rajdhani', sans-serif",
             fontSize: "0.7rem",
             letterSpacing: "0.22em",
-            color: `rgba(128,144,168,0.55)`,
+            color: `rgba(4,13,24,0.45)`,
             textTransform: "uppercase",
             marginBottom: "2rem",
           }}>
@@ -1007,9 +1014,9 @@ function PrensaYMedios() {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "1.05rem",
                 letterSpacing: "0.04em",
-                color: `rgba(240,244,255,0.28)`,
+                color: `rgba(4,13,24,0.35)`,
                 fontStyle: "italic",
-                border: "1px solid rgba(240,244,255,0.08)",
+                border: "1px solid rgba(4,13,24,0.1)",
                 borderRadius: "0.4rem",
                 padding: "0.5rem 1.1rem",
               }}>{m}</span>
@@ -1018,7 +1025,7 @@ function PrensaYMedios() {
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "0.85rem",
-            color: `rgba(240,244,255,0.25)`,
+            color: `rgba(4,13,24,0.3)`,
             fontStyle: "italic",
             marginTop: "1.5rem",
           }}>
@@ -1029,7 +1036,7 @@ function PrensaYMedios() {
     </section>
   );
 }
-
+ 
 // S7: ECOSISTEMA
 const ecosistema = [
   {
@@ -1051,7 +1058,7 @@ const ecosistema = [
   },
   {
     tag: "Comunidad",
-    tagColor: "#a78bfa",
+    tagColor: "#6d4ec2",
     title: "Genora Viva",
     desc: "Para quienes están listos para un proceso de evolución continua.",
     body: "Genora Viva es el espacio de acompañamiento sostenido — donde el sistema se convierte en práctica de vida. La coherencia se construye, se profundiza y se expande en comunidad.",
@@ -1066,12 +1073,12 @@ const ecosistema = [
     cta: "Explorar la app →",
   },
 ];
-
+ 
 function Ecosistema() {
   return (
     <section style={{
       padding: "7rem 1.5rem",
-      background: `radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0,80,120,0.1) 0%, transparent 60%), ${C.navyMid}`,
+      background: C.ivory,
     }}>
       <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
         <Fade>
@@ -1080,7 +1087,7 @@ function Ecosistema() {
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(2rem, 4vw, 3rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             marginBottom: "0.75rem",
           }}>
             Cuatro caminos hacia tu coherencia.
@@ -1088,14 +1095,14 @@ function Ecosistema() {
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1.1rem",
-            color: `rgba(240,244,255,0.5)`,
+            color: `rgba(4,13,24,0.55)`,
             fontStyle: "italic",
             marginBottom: "3.5rem",
           }}>
             Elige el que resuena con tu momento.
           </p>
         </Fade>
-
+ 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
           {ecosistema.map((e, i) => (
             <Fade key={e.title} delay={i * 0.1}>
@@ -1105,7 +1112,7 @@ function Ecosistema() {
                     position: "absolute", top: "1.25rem", right: "1.25rem",
                     fontFamily: "'Rajdhani', sans-serif",
                     fontSize: "0.65rem", letterSpacing: "0.12em",
-                    color: C.navy, background: C.gold,
+                    color: C.ivory, background: C.gold,
                     padding: "0.2rem 0.6rem", borderRadius: "1rem",
                     textTransform: "uppercase", fontWeight: 700,
                   }}>{e.badge}</span>
@@ -1113,13 +1120,13 @@ function Ecosistema() {
                 <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", color: e.tagColor, textTransform: "uppercase", marginBottom: "0.75rem" }}>
                   {e.tag}
                 </p>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", color: C.white, marginBottom: "0.5rem" }}>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", color: C.navy, marginBottom: "0.5rem" }}>
                   {e.title}
                 </h3>
                 <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: C.cyan, fontStyle: "italic", marginBottom: "1rem" }}>
                   {e.desc}
                 </p>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", color: `rgba(240,244,255,0.65)`, lineHeight: 1.8, flex: 1, marginBottom: "1.5rem" }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", color: `rgba(4,13,24,0.68)`, lineHeight: 1.8, flex: 1, marginBottom: "1.5rem" }}>
                   {e.body}
                 </p>
                 <p style={{
@@ -1127,7 +1134,7 @@ function Ecosistema() {
                   fontSize: "0.8rem", letterSpacing: "0.12em",
                   color: e.tagColor, textTransform: "uppercase",
                   fontWeight: 700, cursor: "pointer",
-                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                  borderTop: "1px solid rgba(4,13,24,0.08)",
                   paddingTop: "1rem",
                 }}>
                   {e.cta}
@@ -1140,13 +1147,13 @@ function Ecosistema() {
     </section>
   );
 }
-
+ 
 // S8: CTA FINAL
 function CTAFinal() {
   return (
     <section style={{
       padding: "8rem 1.5rem",
-      background: `radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,120,180,0.15) 0%, transparent 70%), ${C.navy}`,
+      background: C.ivoryCard,
       textAlign: "center",
       position: "relative",
       overflow: "hidden",
@@ -1154,10 +1161,10 @@ function CTAFinal() {
       {/* Decoración fondo */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 0,
-        backgroundImage: `radial-gradient(circle at 20% 50%, rgba(0,212,255,0.04) 0%, transparent 40%),
-                          radial-gradient(circle at 80% 50%, rgba(201,168,76,0.04) 0%, transparent 40%)`,
+        backgroundImage: `radial-gradient(circle at 20% 50%, rgba(0,168,204,0.05) 0%, transparent 40%),
+                          radial-gradient(circle at 80% 50%, rgba(168,137,47,0.05) 0%, transparent 40%)`,
       }} />
-
+ 
       <div style={{ position: "relative", zIndex: 1, maxWidth: "680px", margin: "0 auto" }}>
         <Fade>
           <Label>El Primer Paso</Label>
@@ -1165,7 +1172,7 @@ function CTAFinal() {
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
             fontWeight: 400,
-            color: C.white,
+            color: C.navy,
             lineHeight: 1.2,
             marginBottom: "1.5rem",
           }}>
@@ -1174,7 +1181,7 @@ function CTAFinal() {
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1.15rem",
-            color: `rgba(240,244,255,0.65)`,
+            color: `rgba(4,13,24,0.7)`,
             lineHeight: 1.85,
             marginBottom: "1rem",
           }}>
@@ -1184,14 +1191,14 @@ function CTAFinal() {
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1rem",
-            color: `rgba(240,244,255,0.4)`,
+            color: `rgba(4,13,24,0.5)`,
             fontStyle: "italic",
             marginBottom: "3rem",
           }}>
             13 años de investigación y desarrollo. Existe más de ti esperando emerger.
           </p>
         </Fade>
-
+ 
         <Fade delay={0.2}>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <BtnPrimary>→ Descubrir el Método GENORA™</BtnPrimary>
@@ -1199,18 +1206,18 @@ function CTAFinal() {
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "0.95rem",
-            color: `rgba(240,244,255,0.35)`,
+            color: `rgba(4,13,24,0.4)`,
             marginTop: "1.5rem",
           }}>
             ¿Tienes preguntas? Escríbeme directamente.
           </p>
         </Fade>
-
+ 
         <Fade delay={0.35}>
           <div style={{
             marginTop: "4rem",
             paddingTop: "2.5rem",
-            borderTop: "1px solid rgba(0,212,255,0.08)",
+            borderTop: "1px solid rgba(4,13,24,0.1)",
             display: "flex",
             justifyContent: "center",
             gap: "2.5rem",
@@ -1222,7 +1229,7 @@ function CTAFinal() {
             ].map(([label, val]) => (
               <div key={label} style={{ textAlign: "center" }}>
                 <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", color: C.grayDim, textTransform: "uppercase", marginBottom: "0.25rem" }}>{label}</p>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", color: `rgba(240,244,255,0.5)` }}>{val}</p>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", color: `rgba(4,13,24,0.6)` }}>{val}</p>
               </div>
             ))}
           </div>
@@ -1231,26 +1238,26 @@ function CTAFinal() {
     </section>
   );
 }
-
+ 
 // ═══════════════════════════════════════════
 // PÁGINA COMPLETA
 // ═══════════════════════════════════════════
 export default function HealingPage() {
   return (
-    <div style={{ background: C.navy, color: C.white, minHeight: "100vh", overflowX: "hidden" }}>
+    <div style={{ background: C.ivory, color: C.navy, minHeight: "100vh", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@400;500;600;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #040d18; }
+        body { background: #fdfbf7; }
         @keyframes pulse { 0%{opacity:0.2;transform:scale(1)} 100%{opacity:0.6;transform:scale(1.4)} }
         @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-        ::selection { background: rgba(0,212,255,0.2); }
+        ::selection { background: rgba(0,168,204,0.18); }
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #040d18; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.3); border-radius: 2px; }
+        ::-webkit-scrollbar-track { background: #fdfbf7; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,168,204,0.35); border-radius: 2px; }
       `}</style>
-
+ 
       <Hero />
       <ElProblema />
       <LaFilosofia />
@@ -1261,19 +1268,19 @@ export default function HealingPage() {
       <PrensaYMedios />
       <Ecosistema />
       <CTAFinal />
-
+ 
       {/* Footer mínimo */}
       <footer style={{
         padding: "2rem 1.5rem",
         textAlign: "center",
-        background: "#020810",
-        borderTop: "1px solid rgba(0,212,255,0.06)",
+        background: C.ivoryCard,
+        borderTop: "1px solid rgba(4,13,24,0.08)",
       }}>
         <p style={{
           fontFamily: "'Rajdhani', sans-serif",
           fontSize: "0.7rem",
           letterSpacing: "0.18em",
-          color: `rgba(128,144,168,0.4)`,
+          color: `rgba(4,13,24,0.45)`,
           textTransform: "uppercase",
         }}>
           © 2026 GENORA Global S.A.S. BIC · Todos los derechos reservados · Sistema GENORA®
@@ -1282,3 +1289,4 @@ export default function HealingPage() {
     </div>
   );
 }
+ 

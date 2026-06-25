@@ -307,68 +307,8 @@ function Hero() {
         </video>
       </div>
  
-      {/* Contenido superpuesto, centrado, estilo Gaia */}
-      <div style={{
-        position: "relative", zIndex: 2,
-        maxWidth: "780px",
-        margin: "0 auto",
-        width: "100%",
-        textAlign: "center",
-        paddingTop: "8vh",
-      }}>
-        <div style={{
-          opacity: loaded ? 1 : 0,
-          transform: loaded ? "translateY(0)" : "translateY(-12px)",
-          transition: "all 0.8s ease",
-        }}>
-          <Label>GENORA HEALING™ · SISTEMA MAESTRO DE RECALIBRACIÓN CONSCIENTE</Label>
-        </div>
- 
-        <h1 style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: "clamp(2.1rem, 5.5vw, 4rem)",
-          fontWeight: 400,
-          lineHeight: 1.18,
-          color: C.navy,
-          margin: "0 0 1.5rem",
-          opacity: loaded ? 1 : 0,
-          transform: loaded ? "translateY(0)" : "translateY(20px)",
-          transition: "all 1s ease 0.2s",
-          letterSpacing: "-0.01em",
-          textShadow: "0 2px 20px rgba(253,251,247,0.95), 0 0 40px rgba(253,251,247,0.7)",
-        }}>
-          No viniste roto.<br />Viniste programado.<br />
-          <em style={{ fontStyle: "italic", color: C.navy, fontSize: "0.85em" }}>
-            Existe una versión original de ti esperando ser recordada.
-          </em>
-        </h1>
- 
-        <p style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
-          color: `rgba(4,13,24,0.82)`,
-          lineHeight: 1.85,
-          maxWidth: "600px",
-          margin: "0 auto 2.8rem",
-          opacity: loaded ? 1 : 0,
-          transition: "all 0.9s ease 0.6s",
-          textShadow: "0 1px 16px rgba(253,251,247,0.9), 0 0 30px rgba(253,251,247,0.6)",
-        }}>
-          El potencial humano es mucho mayor de lo que hemos recordado. GENORA acompaña
-          procesos de recalibración consciente de códigos que permiten expresar niveles más
-          elevados de coherencia, consciencia, creación y expansión. No se trata de convertirse
-          en alguien diferente; se trata de recordar lo que siempre estuvo en ti.
-        </p>
- 
-        <div style={{
-          display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center",
-          opacity: loaded ? 1 : 0,
-          transition: "all 0.9s ease 0.85s",
-        }}>
-          <BtnPrimary>Descubrir el Método GENORA™</BtnPrimary>
-          <BtnSecondary>Acceder al Ecosistema App</BtnSecondary>
-        </div>
-      </div>
+      {/* Contenido de texto temporalmente oculto — pendiente de directrices nuevas de copy.
+          Para restaurar, volver a agregar aquí: Label, h1, p, y los botones. */}
  
       {/* Scroll indicator */}
       <div style={{

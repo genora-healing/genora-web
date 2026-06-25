@@ -280,14 +280,14 @@ function Hero() {
       background: C.navy,
     }}>
       {/* Video de fondo — bucle cinematográfico GENORA, sin filtros, sin barras laterales.
-          Hero reducido a 88vh (en vez de 100vh) para acercar la proporción del contenedor
-          a la del video (16:9) y minimizar el recorte vertical de "cover".
-          object-position con sesgo hacia abajo para mantener siempre visible a la mujer. */}
+          BLINDADO: el contenedor usa top/left/right/bottom: 0 (anclado a los 4 bordes del
+          <section>), en vez de width/height: 100%. Así su tamaño NUNCA depende de cuánto
+          texto haya dentro del Hero — sea mucho texto, poco, o nada, el video siempre
+          ocupa exactamente el alto y ancho del <section> (88vh). */}
       <div
         style={{
           position: "absolute",
-          top: 0, left: 0,
-          width: "100%", height: "100%",
+          top: 0, left: 0, right: 0, bottom: 0,
           zIndex: 0,
         }}
       >
@@ -307,28 +307,67 @@ function Hero() {
         </video>
       </div>
  
-      {/* Placeholder temporal — fuerza la altura correcta del Hero mientras llega el copy definitivo.
-          Ubicado a la izquierda para no tapar a la mujer/haz de luz en el centro del video.
-          Reemplazar este bloque completo cuando lleguen las directrices nuevas. */}
+      {/* Contenido superpuesto, centrado, estilo Gaia */}
       <div style={{
         position: "relative", zIndex: 2,
         maxWidth: "780px",
+        margin: "0 auto",
         width: "100%",
-        textAlign: "left",
+        textAlign: "center",
         paddingTop: "8vh",
-        paddingLeft: "4vw",
       }}>
+        <div style={{
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? "translateY(0)" : "translateY(-12px)",
+          transition: "all 0.8s ease",
+        }}>
+          <Label>GENORA HEALING™ · SISTEMA MAESTRO DE RECALIBRACIÓN CONSCIENTE</Label>
+        </div>
+ 
         <h1 style={{
           fontFamily: "'Cormorant Garamond', Georgia, serif",
           fontSize: "clamp(2.1rem, 5.5vw, 4rem)",
           fontWeight: 400,
-          color: C.white,
-          opacity: 0.01,
-          margin: 0,
-          letterSpacing: "0.05em",
+          lineHeight: 1.18,
+          color: C.navy,
+          margin: "0 0 1.5rem",
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? "translateY(0)" : "translateY(20px)",
+          transition: "all 1s ease 0.2s",
+          letterSpacing: "-0.01em",
+          textShadow: "0 2px 20px rgba(253,251,247,0.95), 0 0 40px rgba(253,251,247,0.7)",
         }}>
-          GENORA
+          No viniste roto.<br />Viniste programado.<br />
+          <em style={{ fontStyle: "italic", color: C.navy, fontSize: "0.85em" }}>
+            Existe una versión original de ti esperando ser recordada.
+          </em>
         </h1>
+ 
+        <p style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
+          color: `rgba(4,13,24,0.82)`,
+          lineHeight: 1.85,
+          maxWidth: "600px",
+          margin: "0 auto 2.8rem",
+          opacity: loaded ? 1 : 0,
+          transition: "all 0.9s ease 0.6s",
+          textShadow: "0 1px 16px rgba(253,251,247,0.9), 0 0 30px rgba(253,251,247,0.6)",
+        }}>
+          El potencial humano es mucho mayor de lo que hemos recordado. GENORA acompaña
+          procesos de recalibración consciente de códigos que permiten expresar niveles más
+          elevados de coherencia, consciencia, creación y expansión. No se trata de convertirse
+          en alguien diferente; se trata de recordar lo que siempre estuvo en ti.
+        </p>
+ 
+        <div style={{
+          display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center",
+          opacity: loaded ? 1 : 0,
+          transition: "all 0.9s ease 0.85s",
+        }}>
+          <BtnPrimary>Descubrir el Método GENORA™</BtnPrimary>
+          <BtnSecondary>Acceder al Ecosistema App</BtnSecondary>
+        </div>
       </div>
  
       {/* Scroll indicator */}

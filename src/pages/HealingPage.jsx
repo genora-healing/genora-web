@@ -273,6 +273,7 @@ function Hero() {
     <section style={{
       height: "88vh",
       minHeight: "88vh",
+      boxSizing: "border-box",
       display: "flex",
       alignItems: "center",
       padding: "2rem",
@@ -301,7 +302,8 @@ function Hero() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 60%",
+            objectPosition: "center 95%",
+            filter: "contrast(1.15) brightness(0.92)",
           }}
         >
           <source src="/videos/Video-hook-mini.mp4" type="video/mp4" />

@@ -271,6 +271,7 @@ function Hero() {
  
   return (
     <section style={{
+      height: "88vh",
       minHeight: "88vh",
       display: "flex",
       alignItems: "center",

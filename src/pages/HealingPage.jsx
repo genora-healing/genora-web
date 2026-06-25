@@ -295,7 +295,7 @@ function Hero() {
           zIndex: 0,
         }}
       >
-        <source src="/videos/genora-hero-loop.mp4" type="video/mp4" />
+        <source src="/videos/genora-hook.mp4" type="video/mp4" />
       </video>
  
       {/* Scrim: degradado marfil para anclar el texto y mantener legibilidad */}

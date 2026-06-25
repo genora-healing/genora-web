@@ -274,7 +274,7 @@ function Hero() {
       minHeight: "88vh",
       display: "flex",
       alignItems: "center",
-      padding: 0,
+      padding: "2rem",
       position: "relative",
       overflow: "hidden",
       background: C.navy,
@@ -307,8 +307,29 @@ function Hero() {
         </video>
       </div>
  
-      {/* Contenido de texto temporalmente oculto — pendiente de directrices nuevas de copy.
-          Para restaurar, volver a agregar aquí: Label, h1, p, y los botones. */}
+      {/* Placeholder temporal — fuerza la altura correcta del Hero mientras llega el copy definitivo.
+          Ubicado a la izquierda para no tapar a la mujer/haz de luz en el centro del video.
+          Reemplazar este bloque completo cuando lleguen las directrices nuevas. */}
+      <div style={{
+        position: "relative", zIndex: 2,
+        maxWidth: "780px",
+        width: "100%",
+        textAlign: "left",
+        paddingTop: "8vh",
+        paddingLeft: "4vw",
+      }}>
+        <h1 style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: "clamp(2.1rem, 5.5vw, 4rem)",
+          fontWeight: 400,
+          color: C.white,
+          opacity: 0.01,
+          margin: 0,
+          letterSpacing: "0.05em",
+        }}>
+          GENORA
+        </h1>
+      </div>
  
       {/* Scroll indicator */}
       <div style={{

@@ -271,7 +271,7 @@ function Hero() {
  
   return (
     <section style={{
-      minHeight: "100vh",
+      minHeight: "88vh",
       display: "flex",
       alignItems: "center",
       padding: "2rem",
@@ -279,42 +279,16 @@ function Hero() {
       overflow: "hidden",
       background: C.navy,
     }}>
-      {/* Video de fondo — capa 1: el mismo clip agrandado y difuminado, rellena los bordes sin contraste */}
+      {/* Video de fondo — bucle cinematográfico GENORA, sin filtros, sin barras laterales.
+          Hero reducido a 88vh (en vez de 100vh) para acercar la proporción del contenedor
+          a la del video (16:9) y minimizar el recorte vertical de "cover".
+          object-position con sesgo hacia abajo para mantener siempre visible a la mujer. */}
       <div
         style={{
           position: "absolute",
           top: 0, left: 0,
           width: "100%", height: "100%",
-          overflow: "hidden",
           zIndex: 0,
-        }}
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: "50%", left: "50%",
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            transform: "translate(-50%, -50%) scale(1.25)",
-            filter: "blur(40px) brightness(0.85)",
-          }}
-        >
-          <source src="/videos/genora-hook.mp4" type="video/mp4" />
-        </video>
-      </div>
- 
-      {/* Video de fondo — capa 2: el clip nítido, completo, sin recorte (16:9 nativo) */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0, left: 0,
-          width: "100%", height: "100%",
-          zIndex: 1,
         }}
       >
         <video
@@ -325,8 +299,8 @@ function Hero() {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain",
-            objectPosition: "center center",
+            objectFit: "cover",
+            objectPosition: "center 85%",
           }}
         >
           <source src="/videos/genora-hook.mp4" type="video/mp4" />

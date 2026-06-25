@@ -279,24 +279,31 @@ function Hero() {
       overflow: "hidden",
       background: C.navy,
     }}>
-      {/* Video de fondo — bucle cinematográfico GENORA */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+      {/* Video de fondo — bucle cinematográfico GENORA, sin filtros, video completo (16:9 nativo) */}
+      <div
         style={{
           position: "absolute",
-          top: "50%", left: "50%",
-          minWidth: "100%", minHeight: "100%",
-          width: "auto", height: "auto",
-          transform: "translate(-50%, -50%)",
-          objectFit: "cover",
+          top: 0, left: 0,
+          width: "100%", height: "100%",
+          backgroundColor: "#0a0e1a",
           zIndex: 0,
         }}
       >
-        <source src="/videos/genora-hook.mp4" type="video/mp4" />
-      </video>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            objectPosition: "center center",
+          }}
+        >
+          <source src="/videos/genora-hook.mp4" type="video/mp4" />
+        </video>
+      </div>
  
       {/* Contenido superpuesto, centrado, estilo Gaia */}
       <div style={{

@@ -300,10 +300,10 @@ function Hero() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 85%",
+            objectPosition: "center 60%",
           }}
         >
-          <source src="/videos/genora-hook.mp4" type="video/mp4" />
+          <source src="/videos/Video-hook-mini.mp4" type="video/mp4" />
         </video>
       </div>
  

@@ -298,19 +298,6 @@ function Hero() {
         <source src="/videos/genora-hook.mp4" type="video/mp4" />
       </video>
  
-      {/* Scrim: degradado marfil para anclar el texto y mantener legibilidad */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1,
-        background: `linear-gradient(180deg,
-          rgba(253,251,247,0.15) 0%,
-          rgba(253,251,247,0.55) 55%,
-          rgba(253,251,247,0.92) 100%)`,
-      }} />
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1,
-        background: `radial-gradient(ellipse 65% 55% at 50% 68%, rgba(253,251,247,0.85) 0%, transparent 70%)`,
-      }} />
- 
       {/* Contenido superpuesto, centrado, estilo Gaia */}
       <div style={{
         position: "relative", zIndex: 2,
@@ -339,7 +326,7 @@ function Hero() {
           transform: loaded ? "translateY(0)" : "translateY(20px)",
           transition: "all 1s ease 0.2s",
           letterSpacing: "-0.01em",
-          textShadow: "0 2px 24px rgba(253,251,247,0.9)",
+          textShadow: "0 2px 20px rgba(253,251,247,0.95), 0 0 40px rgba(253,251,247,0.7)",
         }}>
           No viniste roto.<br />Viniste programado.<br />
           <em style={{ fontStyle: "italic", color: C.navy, fontSize: "0.85em" }}>
@@ -350,12 +337,13 @@ function Hero() {
         <p style={{
           fontFamily: "'Cormorant Garamond', Georgia, serif",
           fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
-          color: `rgba(4,13,24,0.78)`,
+          color: `rgba(4,13,24,0.82)`,
           lineHeight: 1.85,
           maxWidth: "600px",
           margin: "0 auto 2.8rem",
           opacity: loaded ? 1 : 0,
           transition: "all 0.9s ease 0.6s",
+          textShadow: "0 1px 16px rgba(253,251,247,0.9), 0 0 30px rgba(253,251,247,0.6)",
         }}>
           El potencial humano es mucho mayor de lo que hemos recordado. GENORA acompaña
           procesos de recalibración consciente de códigos que permiten expresar niveles más

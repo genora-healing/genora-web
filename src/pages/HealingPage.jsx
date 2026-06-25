@@ -274,7 +274,7 @@ function Hero() {
       minHeight: "88vh",
       display: "flex",
       alignItems: "center",
-      padding: "2rem",
+      padding: 0,
       position: "relative",
       overflow: "hidden",
       background: C.navy,

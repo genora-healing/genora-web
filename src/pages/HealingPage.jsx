@@ -270,9 +270,7 @@ function Hero() {
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
  
   return (
-    <section style={{
-      height: "88vh",
-      minHeight: "88vh",
+    <section className="hero-section" style={{
       boxSizing: "border-box",
       display: "flex",
       alignItems: "center",
@@ -330,7 +328,7 @@ function Hero() {
 // S2: NO VINISTE ROTO, VINISTE PROGRAMADO
 function ElProblema() {
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivoryCard,
       position: "relative",
@@ -412,7 +410,7 @@ function ElProblema() {
 // S3: LA FILOSOFÍA
 function LaFilosofia() {
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivory,
     }}>
@@ -449,7 +447,7 @@ function LaFilosofia() {
           </p>
         </Fade>
  
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+        <div className="responsive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
           <Fade delay={0.15}>
             <Card>
               <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: C.cyan, textTransform: "uppercase", marginBottom: "0.75rem" }}>Filosofía</p>
@@ -529,7 +527,7 @@ const principios = [
  
 function Principios() {
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivoryCard,
     }}>
@@ -547,7 +545,7 @@ function Principios() {
           </h2>
         </Fade>
  
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+        <div className="responsive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
           {principios.map((p, i) => (
             <Fade key={p.num} delay={i * 0.1}>
               <div style={{
@@ -602,7 +600,7 @@ const creencias = [
  
 function Manifiesto() {
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivory,
       textAlign: "center",
@@ -688,7 +686,7 @@ function ElCamino() {
   const [active, setActive] = useState(0);
  
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivoryCard,
     }}>
@@ -825,7 +823,7 @@ function ElCamino() {
 // S6: VOZ DE PAMELA
 function VozDePamela() {
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivory,
       textAlign: "center",
@@ -1018,7 +1016,7 @@ const ecosistema = [
  
 function Ecosistema() {
   return (
-    <section style={{
+    <section className="section-padded" style={{
       padding: "7rem 1.5rem",
       background: C.ivory,
     }}>
@@ -1045,7 +1043,7 @@ function Ecosistema() {
           </p>
         </Fade>
  
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+        <div className="responsive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
           {ecosistema.map((e, i) => (
             <Fade key={e.title} delay={i * 0.1}>
               <Card style={{ display: "flex", flexDirection: "column", height: "100%", position: "relative" }}>
@@ -1198,6 +1196,49 @@ export default function HealingPage() {
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #fdfbf7; }
         ::-webkit-scrollbar-thumb { background: rgba(0,168,204,0.35); border-radius: 2px; }
+ 
+        /* ═══ HERO: altura estable en móvil ═══
+           vh en navegadores móviles se calcula sobre la altura MÁXIMA posible (incluyendo
+           cuando la barra de direcciones está oculta), lo que puede causar un salto visual
+           al cargar. dvh (dynamic viewport height) es más preciso y estable, pero solo
+           algunos navegadores la soportan — por eso se declara vh primero (funciona en
+           todos) y dvh después (los navegadores que no la reconocen simplemente la ignoran
+           y se quedan con el valor de vh ya aplicado). */
+        .hero-section {
+          height: 88vh;
+          min-height: 88vh;
+        }
+        @supports (height: 88dvh) {
+          .hero-section {
+            height: 88dvh;
+            min-height: 88dvh;
+          }
+        }
+ 
+        /* ═══ GRIDS RESPONSIVOS ═══
+           En pantallas muy angostas (480px o menos), forzamos una sola columna en vez de
+           depender de minmax(280px,...), que dejaba un margen de seguridad demasiado
+           ajustado en los celulares más pequeños del mercado (320-360px de ancho) y podía
+           causar un desborde horizontal mínimo. Una sola columna ancha también se lee mejor
+           que columnas apretadas en pantallas chicas. */
+        @media (max-width: 480px) {
+          .responsive-grid { grid-template-columns: 1fr !important; }
+        }
+ 
+        /* ═══ BREAKPOINTS RESPONSIVOS — controlan toda la página desde un solo lugar ═══
+           Estas reglas reducen el padding vertical de las secciones en pantallas chicas,
+           para que el usuario no tenga que scrollear más de lo necesario y el contenido
+           respire bien sin verse ni demasiado apretado ni demasiado espaciado. */
+ 
+        /* Tablets y pantallas medianas (768px y menos) */
+        @media (max-width: 768px) {
+          .section-padded { padding: 4.5rem 1.25rem !important; }
+        }
+ 
+        /* Celulares (480px y menos) */
+        @media (max-width: 480px) {
+          .section-padded { padding: 3.5rem 1rem !important; }
+        }
       `}</style>
  
       <Hero />

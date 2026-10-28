@@ -1,5 +1,7 @@
+
+import HeroSection from "../components/HeroSection";
 import { useState, useEffect, useRef } from "react";
- 
+
 // ─── PALETA GENORA ───────────────────────────────────────────────
 const C = {
   ivory:    "#fdfbf7",
@@ -15,12 +17,12 @@ const C = {
   gray:    "#5a6478",
   grayDim: "#8a93a5",
 };
- 
+
 // ─── ESTILOS BASE ────────────────────────────────────────────────
 const base = {
   fontFamily: "'Rajdhani', 'Cormorant Garamond', Georgia, serif",
 };
- 
+
 // ─── HOOK: INTERSECTION OBSERVER ─────────────────────────────────
 function useFadeIn() {
   const ref = useRef(null);
@@ -37,7 +39,7 @@ function useFadeIn() {
   }, []);
   return [ref, visible];
 }
- 
+
 // ─── COMPONENTE: FADE WRAPPER ────────────────────────────────────
 function Fade({ children, delay = 0, style = {} }) {
   const [ref, visible] = useFadeIn();
@@ -52,7 +54,7 @@ function Fade({ children, delay = 0, style = {} }) {
     </div>
   );
 }
- 
+
 // ─── COMPONENTE: LABEL CYAN ───────────────────────────────────────
 function Label({ children }) {
   return (
@@ -67,7 +69,7 @@ function Label({ children }) {
     }}>{children}</p>
   );
 }
- 
+
 // ─── COMPONENTE: DIVISOR ─────────────────────────────────────────
 function Divider() {
   return (
@@ -79,7 +81,7 @@ function Divider() {
     }} />
   );
 }
- 
+
 // ─── COMPONENTE: CARD ─────────────────────────────────────────────
 function Card({ children, style = {} }) {
   return (
@@ -104,7 +106,7 @@ function Card({ children, style = {} }) {
     </div>
   );
 }
- 
+
 // ─── COMPONENTE: BOTÓN PRIMARIO ───────────────────────────────────
 function BtnPrimary({ children, onClick }) {
   const [hover, setHover] = useState(false);
@@ -138,7 +140,7 @@ function BtnPrimary({ children, onClick }) {
     </button>
   );
 }
- 
+
 // ─── COMPONENTE: BOTÓN SECUNDARIO ────────────────────────────────
 function BtnSecondary({ children, onClick }) {
   const [hover, setHover] = useState(false);
@@ -170,161 +172,11 @@ function BtnSecondary({ children, onClick }) {
     </button>
   );
 }
- 
+
 // ════════════════════════════════════════════════════════════════
 // SECCIONES
 // ════════════════════════════════════════════════════════════════
- 
-// S1: HERO
-// Esfera de geometría sagrada — "Plantilla del ADN original" en líneas de luz finas
-function SacredSphere() {
-  const [rotate, setRotate] = useState(0);
-  useEffect(() => {
-    let raf;
-    const tick = () => { setRotate(r => r + 0.08); raf = requestAnimationFrame(tick); };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
- 
-  return (
-    <div style={{
-      position: "relative",
-      width: "min(420px, 80vw)",
-      height: "min(420px, 80vw)",
-      display: "flex", alignItems: "center", justifyContent: "center",
-    }}>
-      {/* Resplandor esférico de fondo — blanco-champagne */}
-      <div style={{
-        position: "absolute", inset: "-15%",
-        borderRadius: "50%",
-        background: `radial-gradient(circle, rgba(255,250,240,0.7) 0%, rgba(232,221,196,0.18) 45%, transparent 75%)`,
-        filter: "blur(2px)",
-      }} />
-      <div style={{
-        position: "absolute", inset: "8%",
-        borderRadius: "50%",
-        boxShadow: `0 0 70px 14px rgba(232,221,196,0.35), inset 0 0 50px rgba(255,250,240,0.5)`,
-        background: "rgba(255,253,248,0.4)",
-      }} />
- 
-      <svg viewBox="0 0 400 400" style={{ width: "100%", height: "100%", position: "relative", zIndex: 2 }}>
-        <defs>
-          <radialGradient id="sphereGlow" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stopColor="#fffaf0" stopOpacity="0.65" />
-            <stop offset="100%" stopColor="#fffaf0" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id="lineGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={C.navy} stopOpacity="0.22" />
-            <stop offset="100%" stopColor={C.gold} stopOpacity="0.4" />
-          </linearGradient>
-        </defs>
- 
-        <circle cx="200" cy="200" r="160" fill="url(#sphereGlow)" />
- 
-        {/* Anillos de geometría — elipses rotadas, líneas ultra-finas oscuras */}
-        <g style={{ transformOrigin: "200px 200px", transform: `rotate(${rotate}deg)` }}>
-          {[0, 30, 60, 90, 120, 150].map((deg) => (
-            <ellipse
-              key={deg}
-              cx="200" cy="200" rx="150" ry="62"
-              fill="none"
-              stroke="url(#lineGlow)"
-              strokeWidth="0.7"
-              opacity="0.7"
-              transform={`rotate(${deg} 200 200)`}
-            />
-          ))}
-        </g>
- 
-        {/* Anillo contrario, más lento */}
-        <g style={{ transformOrigin: "200px 200px", transform: `rotate(${-rotate * 0.6}deg)` }}>
-          <circle cx="200" cy="200" r="120" fill="none" stroke={C.navy} strokeWidth="0.5" opacity="0.18" />
-          <circle cx="200" cy="200" r="90" fill="none" stroke={C.gold} strokeWidth="0.5" opacity="0.35" />
-        </g>
- 
-        {/* Núcleo central — puntos sutiles tipo bio-fotones */}
-        <circle cx="200" cy="200" r="3" fill={C.gold} opacity="0.8">
-          <animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite" />
-        </circle>
-        {[...Array(8)].map((_, i) => {
-          const a = (i / 8) * 2 * Math.PI;
-          const r = 145;
-          return (
-            <circle
-              key={i}
-              cx={200 + r * Math.cos(a + rotate * 0.02)}
-              cy={200 + r * Math.sin(a + rotate * 0.02)}
-              r="1.4"
-              fill={i % 2 === 0 ? C.navy : C.gold}
-              opacity={i % 2 === 0 ? 0.3 : 0.6}
-            />
-          );
-        })}
-      </svg>
-    </div>
-  );
-}
- 
-function Hero() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
- 
-  return (
-    <section className="hero-section" style={{
-      boxSizing: "border-box",
-      display: "flex",
-      alignItems: "center",
-      padding: "2rem",
-      position: "relative",
-      overflow: "hidden",
-      background: C.navy,
-    }}>
-      {/* Video de fondo — bucle cinematográfico GENORA, sin filtros, sin barras laterales.
-          BLINDADO: el contenedor usa top/left/right/bottom: 0 (anclado a los 4 bordes del
-          <section>), en vez de width/height: 100%. Así su tamaño NUNCA depende de cuánto
-          texto haya dentro del Hero — sea mucho texto, poco, o nada, el video siempre
-          ocupa exactamente el alto y ancho del <section> (88vh). */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0, left: 0, right: 0, bottom: 0,
-          zIndex: 0,
-        }}
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 95%",
-            filter: "contrast(1.15) brightness(0.92)",
-          }}
-        >
-          <source src="/videos/Video-hook-mini.mp4" type="video/mp4" />
-        </video>
-      </div>
- 
-      {/* Contenido de texto oculto temporalmente — pendiente de directrices nuevas de copy.
-          El video YA NO depende de este bloque (está blindado con top/left/right/bottom: 0),
-          así que se puede agregar, quitar o cambiar texto aquí libremente sin afectar
-          el tamaño ni el encuadre del video de fondo. */}
- 
-      {/* Scroll indicator */}
-      <div style={{
-        position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)",
-        zIndex: 2, opacity: 0.4,
-        animation: "bounce 2s ease-in-out infinite",
-      }}>
-        <div style={{ width: "1px", height: "3rem", background: `linear-gradient(${C.cyan}, transparent)`, margin: "0 auto" }} />
-      </div>
-    </section>
-  );
-}
- 
+
 // S2: NO VINISTE ROTO, VINISTE PROGRAMADO
 function ElProblema() {
   return (
@@ -343,7 +195,7 @@ function ElProblema() {
         position: "absolute", top: "12%", right: "calc(8% - 3px)", width: "7px", height: "7px",
         borderRadius: "50%", border: `1px solid rgba(0,168,204,0.4)`,
       }} />
- 
+
       <div style={{ maxWidth: "760px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         <Fade>
           <Label>El Punto de Partida</Label>
@@ -358,7 +210,7 @@ function ElProblema() {
             No viniste roto.<br />Viniste programado.
           </h2>
         </Fade>
- 
+
         <Fade delay={0.15}>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: `rgba(4,13,24,0.78)`, lineHeight: 1.9, marginBottom: "1.5rem" }}>
             Durante años nos enseñaron que debíamos corregirnos. Sanar heridas. Superar traumas.
@@ -373,7 +225,7 @@ function ElProblema() {
             que sostiene aquello que te sucede.
           </p>
         </Fade>
- 
+
         <Fade delay={0.3}>
           <div style={{
             borderLeft: `3px solid ${C.cyan}`,
@@ -393,7 +245,7 @@ function ElProblema() {
             </p>
           </div>
         </Fade>
- 
+
         <Fade delay={0.45}>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: C.cyan, lineHeight: 1.8, fontWeight: 600, marginBottom: "0.5rem" }}>
             GENORA trabaja en esa información.
@@ -406,7 +258,7 @@ function ElProblema() {
     </section>
   );
 }
- 
+
 // S3: LA FILOSOFÍA
 function LaFilosofia() {
   return (
@@ -428,7 +280,7 @@ function LaFilosofia() {
           </h2>
           <Divider />
         </Fade>
- 
+
         <Fade delay={0.1}>
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
@@ -446,7 +298,7 @@ function LaFilosofia() {
             la experiencia cambia.
           </p>
         </Fade>
- 
+
         <div className="responsive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
           <Fade delay={0.15}>
             <Card>
@@ -461,7 +313,7 @@ function LaFilosofia() {
               </p>
             </Card>
           </Fade>
- 
+
           <Fade delay={0.25}>
             <Card>
               <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: C.gold, textTransform: "uppercase", marginBottom: "0.75rem" }}>Principio Organizador</p>
@@ -475,7 +327,7 @@ function LaFilosofia() {
               </p>
             </Card>
           </Fade>
- 
+
           <Fade delay={0.35}>
             <Card>
               <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", color: "#6d4ec2", textTransform: "uppercase", marginBottom: "0.75rem" }}>Trayectoria</p>
@@ -495,7 +347,7 @@ function LaFilosofia() {
     </section>
   );
 }
- 
+
 // S4: PRINCIPIOS
 const principios = [
   {
@@ -524,7 +376,7 @@ const principios = [
     body: "La expansión no es algo que debas forzar. Es el estado natural del ser cuando recupera coherencia con su Diseño Original.",
   },
 ];
- 
+
 function Principios() {
   return (
     <section className="section-padded" style={{
@@ -544,7 +396,7 @@ function Principios() {
             Los Cinco Principios Maestros de GENORA®
           </h2>
         </Fade>
- 
+
         <div className="responsive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
           {principios.map((p, i) => (
             <Fade key={p.num} delay={i * 0.1}>
@@ -587,7 +439,7 @@ function Principios() {
     </section>
   );
 }
- 
+
 // S4.5: MANIFIESTO — "Lo que creemos"
 const creencias = [
   "Creemos que existe más de nosotros esperando emerger.",
@@ -597,7 +449,7 @@ const creencias = [
   "Creemos que la coherencia transforma.",
   "Creemos que los dones naturales del ser humano no necesitan ser creados. Necesitan ser recordados.",
 ];
- 
+
 function Manifiesto() {
   return (
     <section className="section-padded" style={{
@@ -619,7 +471,7 @@ function Manifiesto() {
             No concebimos la transformación humana<br />como un proceso de corrección.
           </h2>
         </Fade>
- 
+
         <div style={{ display: "flex", flexDirection: "column", gap: "1.4rem", marginBottom: "3rem" }}>
           {creencias.map((c, i) => (
             <Fade key={i} delay={i * 0.08}>
@@ -633,7 +485,7 @@ function Manifiesto() {
             </Fade>
           ))}
         </div>
- 
+
         <Fade delay={0.5}>
           <div style={{ borderTop: "1px solid rgba(0,168,204,0.25)", paddingTop: "2rem" }}>
             <p style={{
@@ -652,7 +504,7 @@ function Manifiesto() {
     </section>
   );
 }
- 
+
 // S5: LOS 5 PASOS
 const pasos = [
   {
@@ -681,10 +533,10 @@ const pasos = [
     body: "El proceso no termina en la sesión — termina cuando la nueva coherencia se convierte en tu forma natural de operar. Integramos la recalibración en tu vida cotidiana: tu creación, tu bienestar, tu expansión. Esa es la Emergencia del Potencial Humano®.",
   },
 ];
- 
+
 function ElCamino() {
   const [active, setActive] = useState(0);
- 
+
   return (
     <section className="section-padded" style={{
       padding: "7rem 1.5rem",
@@ -712,7 +564,7 @@ function ElCamino() {
             Un recorrido que no promete atajos — promete coherencia real.
           </p>
         </Fade>
- 
+
         {/* Lista de pasos */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
           {pasos.map((p, i) => (
@@ -750,7 +602,7 @@ function ElCamino() {
                     transform: active === i ? "rotate(45deg)" : "rotate(0deg)",
                   }}>+</span>
                 </div>
- 
+
                 {active === i && (
                   <div style={{
                     paddingLeft: "3.5rem",
@@ -769,7 +621,7 @@ function ElCamino() {
             </Fade>
           ))}
         </div>
- 
+
         {/* Curva de progreso */}
         <Fade delay={0.3}>
           <div style={{
@@ -819,7 +671,7 @@ function ElCamino() {
     </section>
   );
 }
- 
+
 // S6: VOZ DE PAMELA
 function VozDePamela() {
   return (
@@ -856,7 +708,7 @@ function VozDePamela() {
             Pamela Cadavid · Creadora del Sistema Maestro GENORA® · Arquitecta del Diseño Original
           </p>
         </Fade>
- 
+
         <Fade delay={0.15}>
           <blockquote style={{
             fontFamily: "'Cormorant Garamond', serif",
@@ -880,7 +732,7 @@ function VozDePamela() {
             marginBottom: "2.5rem",
           }}>— Pamela Cadavid</p>
         </Fade>
- 
+
         <Fade delay={0.3}>
           <div style={{
             borderTop: "1px solid rgba(0,168,204,0.18)",
@@ -913,12 +765,12 @@ function VozDePamela() {
     </section>
   );
 }
- 
-// S6.5: PRENSA Y MEDIOS (placeholder — preparada para menciones futuras)
+
+// S6.5: PRENSA Y MEDIOS
 const mediosPlaceholder = [
   "MEDIO", "PUBLICACIÓN", "REVISTA", "PODCAST", "ENTREVISTA", "ALIANZA",
 ];
- 
+
 function PrensaYMedios() {
   return (
     <section style={{
@@ -976,7 +828,7 @@ function PrensaYMedios() {
     </section>
   );
 }
- 
+
 // S7: ECOSISTEMA
 const ecosistema = [
   {
@@ -1013,7 +865,7 @@ const ecosistema = [
     cta: "Explorar la app →",
   },
 ];
- 
+
 function Ecosistema() {
   return (
     <section className="section-padded" style={{
@@ -1042,7 +894,7 @@ function Ecosistema() {
             Elige el que resuena con tu momento.
           </p>
         </Fade>
- 
+
         <div className="responsive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
           {ecosistema.map((e, i) => (
             <Fade key={e.title} delay={i * 0.1}>
@@ -1087,7 +939,7 @@ function Ecosistema() {
     </section>
   );
 }
- 
+
 // S8: CTA FINAL
 function CTAFinal() {
   return (
@@ -1104,7 +956,7 @@ function CTAFinal() {
         backgroundImage: `radial-gradient(circle at 20% 50%, rgba(0,168,204,0.05) 0%, transparent 40%),
                           radial-gradient(circle at 80% 50%, rgba(168,137,47,0.05) 0%, transparent 40%)`,
       }} />
- 
+
       <div style={{ position: "relative", zIndex: 1, maxWidth: "680px", margin: "0 auto" }}>
         <Fade>
           <Label>El Primer Paso</Label>
@@ -1138,7 +990,7 @@ function CTAFinal() {
             13 años de investigación y desarrollo. Existe más de ti esperando emerger.
           </p>
         </Fade>
- 
+
         <Fade delay={0.2}>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <BtnPrimary>→ Descubrir el Método GENORA™</BtnPrimary>
@@ -1152,7 +1004,7 @@ function CTAFinal() {
             ¿Tienes preguntas? Escríbeme directamente.
           </p>
         </Fade>
- 
+
         <Fade delay={0.35}>
           <div style={{
             marginTop: "4rem",
@@ -1178,7 +1030,7 @@ function CTAFinal() {
     </section>
   );
 }
- 
+
 // ═══════════════════════════════════════════
 // PÁGINA COMPLETA
 // ═══════════════════════════════════════════
@@ -1196,14 +1048,7 @@ export default function HealingPage() {
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #fdfbf7; }
         ::-webkit-scrollbar-thumb { background: rgba(0,168,204,0.35); border-radius: 2px; }
- 
-        /* ═══ HERO: altura estable en móvil ═══
-           vh en navegadores móviles se calcula sobre la altura MÁXIMA posible (incluyendo
-           cuando la barra de direcciones está oculta), lo que puede causar un salto visual
-           al cargar. dvh (dynamic viewport height) es más preciso y estable, pero solo
-           algunos navegadores la soportan — por eso se declara vh primero (funciona en
-           todos) y dvh después (los navegadores que no la reconocen simplemente la ignoran
-           y se quedan con el valor de vh ya aplicado). */
+
         .hero-section {
           height: 88vh;
           min-height: 88vh;
@@ -1214,34 +1059,21 @@ export default function HealingPage() {
             min-height: 88dvh;
           }
         }
- 
-        /* ═══ GRIDS RESPONSIVOS ═══
-           En pantallas muy angostas (480px o menos), forzamos una sola columna en vez de
-           depender de minmax(280px,...), que dejaba un margen de seguridad demasiado
-           ajustado en los celulares más pequeños del mercado (320-360px de ancho) y podía
-           causar un desborde horizontal mínimo. Una sola columna ancha también se lee mejor
-           que columnas apretadas en pantallas chicas. */
+
         @media (max-width: 480px) {
           .responsive-grid { grid-template-columns: 1fr !important; }
         }
- 
-        /* ═══ BREAKPOINTS RESPONSIVOS — controlan toda la página desde un solo lugar ═══
-           Estas reglas reducen el padding vertical de las secciones en pantallas chicas,
-           para que el usuario no tenga que scrollear más de lo necesario y el contenido
-           respire bien sin verse ni demasiado apretado ni demasiado espaciado. */
- 
-        /* Tablets y pantallas medianas (768px y menos) */
+
         @media (max-width: 768px) {
           .section-padded { padding: 4.5rem 1.25rem !important; }
         }
- 
-        /* Celulares (480px y menos) */
+
         @media (max-width: 480px) {
           .section-padded { padding: 3.5rem 1rem !important; }
         }
       `}</style>
- 
-      <Hero />
+
+      <HeroSection />
       <ElProblema />
       <LaFilosofia />
       <Principios />
@@ -1251,7 +1083,7 @@ export default function HealingPage() {
       <PrensaYMedios />
       <Ecosistema />
       <CTAFinal />
- 
+
       {/* Footer mínimo */}
       <footer style={{
         padding: "2rem 1.5rem",
@@ -1272,4 +1104,4 @@ export default function HealingPage() {
     </div>
   );
 }
- 
+

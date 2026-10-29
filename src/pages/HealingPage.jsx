@@ -168,3 +168,15 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
             }}
           >
             <span style={{
+              fontSize: "1rem",
+              lineHeight: 1,
+            }} aria-hidden="true">
+              ↓
+            </span>
+            Descubre el método
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}

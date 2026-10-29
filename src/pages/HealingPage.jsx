@@ -1,4 +1,15 @@
 import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import HeroSection from "../components/HeroSection";
+
+export default function HealingPage() {
+  return (
+    <div className="w-full bg-[#020617] text-[#F8FAFF] min-h-screen">
+      {/* ── 1. Hero Cinemático Flanqueado ── */}
+      <HeroSection />
+
+      {/* ── El resto de tu página continúa aquí abajo ── */}
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const gold = "#D4B96A";

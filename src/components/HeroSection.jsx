@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// ─── PALETA GENORA ───────────────────────────────────────────────
 const gold = "#D4B96A";
 const white = "#F8FAFF";
 
@@ -10,7 +9,6 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
   const videoRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
 
-  // Carga dinámica de tipografías cinemáticas limpias (League Spartan)
   useEffect(() => {
     if (!document.getElementById("genora-fonts")) {
       const link = document.createElement("link");
@@ -20,9 +18,10 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
       link.rel = "stylesheet";
       document.head.appendChild(link);
     }
+    const timer = setTimeout(() => setLoaded(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Efecto scroll: opacidad y blur al bajar
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -30,11 +29,6 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const blur = useTransform(scrollYProgress, [0, 0.6], [0, 12]);
   const blurFilter = useTransform(blur, (v) => `blur(${v}px)`);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   const scrollToNext = () => {
     const hero = containerRef.current;
@@ -54,7 +48,6 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
       className="hero-section relative w-full overflow-hidden"
       style={{ height: "100vh", minHeight: "100vh", backgroundColor: "#020617" }}
     >
-      {/* ── Video de fondo ── */}
       <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
@@ -72,7 +65,6 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
         </video>
       </div>
 
-      {/* ── Overlay lateral sutil (mantiene oscuros los bordes para leer sin tapar el centro) ── */}
       <div
         className="absolute inset-0 z-10"
         style={{
@@ -81,12 +73,10 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
         }}
       />
 
-      {/* ── Contenido Flanqueado (Estructura de Escena Cinemática) ── */}
       <motion.div
         className="relative z-20 w-full h-full max-w-[1400px] mx-auto px-8 md:px-16 flex flex-col justify-between box-border py-12"
         style={{ opacity, filter: blurFilter }}
       >
-        {/* Badge / Super-título dorado superior */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={loaded ? { opacity: 1, y: 0 } : {}}
@@ -108,9 +98,7 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
           </p>
         </motion.div>
 
-        {/* Rejilla Asimétrica: Centro Despejado para el Haz de Luz y el ADN */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center w-full my-auto">
-          {/* Lado Izquierdo: Título Principal */}
           <motion.div
             initial={{ opacity: 0, x: -35 }}
             animate={loaded ? { opacity: 1, x: 0 } : {}}
@@ -132,10 +120,8 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
             </h1>
           </motion.div>
 
-          {/* Espacio Central Libre (Columnas 6 y 7 libres para que el rayo de luz respire) */}
           <div className="hidden md:block md:col-span-2 pointer-events-none" />
 
-          {/* Lado Derecho: Subtítulo Editorial */}
           <motion.div
             initial={{ opacity: 0, x: 35 }}
             animate={loaded ? { opacity: 1, x: 0 } : {}}
@@ -160,7 +146,6 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
           </motion.div>
         </div>
 
-        {/* Indicador de scroll cinemático flotante (sin botón duro) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={loaded ? { opacity: 1 } : {}}
@@ -184,7 +169,6 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
             Desliza para ingresar al portal
           </motion.p>
 
-          {/* Pulso de luz vertical */}
           <div style={{ position: "relative", width: "1px", height: "32px" }}>
             <div
               style={{

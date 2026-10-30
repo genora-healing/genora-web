@@ -1,4 +1,4 @@
-// VERCEL_FORCE_UPDATE_V6
+// VERCEL_FORCE_UPDATE_V7
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
@@ -253,64 +253,46 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
               textAlign: "center", padding: "0 3rem", gap: "1rem",
             }}
           >
-            {/* Línea superior */}
-            <motion.div
-              initial={{ scaleX: 0, opacity: 0 }} animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              style={{
-                width: "6rem", height: "1px",
-                background: `linear-gradient(90deg, transparent, ${gold}, transparent)`,
-                transformOrigin: "center",
-              }}
-            />
-            {/* Línea 1 */}
+            {/* Línea 1 — más grande, todo dorado, sin líneas decorativas */}
             <div style={{
-              fontFamily: "'League Spartan', 'Rajdhani', sans-serif",
-              fontSize: "clamp(0.72rem, 1.6vw, 1.05rem)",
-              fontWeight: 700, color: gold,
-              letterSpacing: "0.38em", textTransform: "uppercase",
-              textShadow: `0 0 24px rgba(212,185,106,0.55)`,
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(1.4rem, 3.2vw, 2.6rem)",
+              fontWeight: 600, color: gold,
+              letterSpacing: "0.12em", textTransform: "uppercase",
+              textShadow: `0 0 40px rgba(212,185,106,0.70), 0 2px 12px rgba(0,0,0,0.8)`,
+              lineHeight: 1.2,
             }}>
-              <LetterReveal text="EL SISTEMA MAESTRO DE" stagger={0.025} initialDelay={0.25} />
+              <LetterReveal text="EL SISTEMA MAESTRO DE" stagger={0.028} initialDelay={0.2} />
             </div>
             {/* Línea 2 */}
             <div style={{
-              fontFamily: "'League Spartan', 'Rajdhani', sans-serif",
-              fontSize: "clamp(0.72rem, 1.6vw, 1.05rem)",
-              fontWeight: 700, color: gold,
-              letterSpacing: "0.38em", textTransform: "uppercase",
-              textShadow: `0 0 24px rgba(212,185,106,0.55)`,
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(1.4rem, 3.2vw, 2.6rem)",
+              fontWeight: 600, color: gold,
+              letterSpacing: "0.12em", textTransform: "uppercase",
+              textShadow: `0 0 40px rgba(212,185,106,0.70), 0 2px 12px rgba(0,0,0,0.8)`,
+              lineHeight: 1.2,
             }}>
-              <LetterReveal text="ACTIVACIÓN GENÉTICA" stagger={0.030} initialDelay={0.90} />
+              <LetterReveal text="ACTIVACIÓN GENÉTICA" stagger={0.032} initialDelay={0.85} />
             </div>
-            {/* Línea 3 — serif más suave para contrastar */}
+            {/* Línea 3 — subtítulo en dorado más suave */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 0.75, y: 0 }}
-              transition={{ duration: 1.0, delay: 1.6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.0, delay: 1.7 }}
               style={{
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: "clamp(0.82rem, 1.6vw, 1.1rem)",
+                fontSize: "clamp(1rem, 2vw, 1.4rem)",
                 fontWeight: 300, fontStyle: "italic",
-                color: "rgba(248,250,255,0.72)",
-                letterSpacing: "0.06em",
-                maxWidth: "560px", lineHeight: 1.7,
-                textShadow: "0 1px 20px rgba(2,6,23,0.7)",
+                color: "rgba(212,185,106,0.82)",
+                letterSpacing: "0.04em",
+                maxWidth: "580px", lineHeight: 1.7,
+                textShadow: `0 0 28px rgba(212,185,106,0.40), 0 2px 10px rgba(0,0,0,0.7)`,
                 margin: 0,
               }}
             >
               que une la ciencia vibracional con la evolución<br />de tu campo humano.
             </motion.p>
-            {/* Línea inferior */}
-            <motion.div
-              initial={{ scaleX: 0, opacity: 0 }} animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 2.2 }}
-              style={{
-                width: "6rem", height: "1px",
-                background: `linear-gradient(90deg, transparent, ${gold}, transparent)`,
-                transformOrigin: "center",
-              }}
-            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -375,10 +357,10 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
               fontFamily: "'Cormorant Garamond', Georgia, serif",
               fontSize: "clamp(1.5rem, 3.2vw, 2.4rem)",
               fontWeight: 300, fontStyle: "italic",
-              color: "rgba(248,250,255,0.88)",
+              color: "#1a3a6b",
               lineHeight: 1.65, maxWidth: "620px",
               letterSpacing: "0.025em",
-              textShadow: "0 2px 36px rgba(2,6,23,0.9)",
+              textShadow: "0 2px 24px rgba(26,58,107,0.25)",
               margin: 0,
             }}>
               <WordReveal text="El comienzo de todo lo extraordinario" stagger={0.13} initialDelay={0.3} />

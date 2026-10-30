@@ -1,10 +1,10 @@
-// VERCEL_FORCE_UPDATE_V7
+// VERCEL_FORCE_UPDATE_V8
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-
+ 
 const gold  = "#D4B96A";
 const white = "#F8FAFF";
-
+ 
 // ── Revela letras una a una desde el centro ───────────────────────
 function LetterReveal({ text, style, stagger = 0.045, initialDelay = 0 }) {
   return (
@@ -23,7 +23,7 @@ function LetterReveal({ text, style, stagger = 0.045, initialDelay = 0 }) {
     </span>
   );
 }
-
+ 
 // ── Revela palabras una a una ─────────────────────────────────────
 function WordReveal({ text, style, stagger = 0.12, initialDelay = 0 }) {
   return (
@@ -42,30 +42,31 @@ function WordReveal({ text, style, stagger = 0.12, initialDelay = 0 }) {
     </span>
   );
 }
-
+ 
 export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }) {
   const containerRef = useRef(null);
   const videoRef     = useRef(null);
   const [phase, setPhase] = useState(1);
   const timersRef = useRef([]);
-
+ 
   // Duración total del video ≈ 15s → fases más largas para que se lean bien
   // Fase 1: 0–4s   Fase 2: 4–8s   Fase 3: 8–12s   Fase 4: 12–16s   Fase 5: 16s+
   const startSequence = useCallback(() => {
     timersRef.current.forEach(clearTimeout);
     timersRef.current = [];
     setPhase(1);
-    timersRef.current.push(setTimeout(() => setPhase(2), 4000));
-    timersRef.current.push(setTimeout(() => setPhase(3), 8000));
-    timersRef.current.push(setTimeout(() => setPhase(4), 12000));
-    timersRef.current.push(setTimeout(() => setPhase(5), 16000));
+    timersRef.current.push(setTimeout(() => setPhase(2), 4000));   // 0–4s: frase inicial
+    timersRef.current.push(setTimeout(() => setPhase(3), 8000));   // 4–8s: GENORA HEALING
+    timersRef.current.push(setTimeout(() => setPhase(4), 15000));  // 8–15s: Sistema Maestro (7s)
+    timersRef.current.push(setTimeout(() => setPhase(5), 20000));  // 15–20s: ADN respira (5s)
+    timersRef.current.push(setTimeout(() => setPhase(6), 21200));  // 20s+: frase final (1.2s después = ADN ya desapareció
   }, []);
-
+ 
   useEffect(() => {
     startSequence();
     return () => timersRef.current.forEach(clearTimeout);
   }, [startSequence]);
-
+ 
   // Video: pausa en último frame
   useEffect(() => {
     const video = videoRef.current;
@@ -76,7 +77,7 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
     video.addEventListener("timeupdate", onTime);
     return () => video.removeEventListener("timeupdate", onTime);
   }, []);
-
+ 
   // Scroll: reinicia al volver al tope
   useEffect(() => {
     let wasAway = false;
@@ -92,18 +93,18 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [startSequence]);
-
+ 
   // Scroll-driven opacity
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const scrollOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
+ 
   const scrollToNext = () => {
     containerRef.current?.nextElementSibling?.scrollIntoView({ behavior: "smooth" });
   };
-
+ 
   // Transición de salida compartida
   const exit = { opacity: 0, filter: "blur(14px)", transition: { duration: 0.9 } };
-
+ 
   return (
     <motion.section
       ref={containerRef}
@@ -137,13 +138,13 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
           <source src={videoSrc} type="video/mp4" />
         </video>
       </div>
-
+ 
       {/* Overlay suave — solo bordes, centro libre */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 5, pointerEvents: "none",
         background: "linear-gradient(to bottom, rgba(2,6,23,0.40) 0%, rgba(2,6,23,0.04) 35%, rgba(2,6,23,0.04) 65%, rgba(2,6,23,0.50) 100%)",
       }} />
-
+ 
       {/* ══════════════════════════════════════════════════════════
           FASE 1 (0 – 4s) — Frase inicial, palabra por palabra
           Texto grande y legible sobre la penumbra inicial
@@ -188,7 +189,7 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
           </motion.div>
         )}
       </AnimatePresence>
-
+ 
       {/* ══════════════════════════════════════════════════════════
           FASE 2 (4 – 8s) — GENORA HEALING letra a letra
       ══════════════════════════════════════════════════════════ */}
@@ -218,7 +219,7 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
             {/* GENORA */}
             <div style={{
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(3rem, 8.5vw, 7rem)",
+              fontSize: "clamp(2rem, 5.5vw, 4.2rem)",
               fontWeight: 700, color: white,
               letterSpacing: "0.24em", textTransform: "uppercase", lineHeight: 1,
               textShadow: `0 0 55px rgba(212,185,106,0.50), 0 0 22px rgba(212,185,106,0.28)`,
@@ -228,7 +229,7 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
             {/* HEALING */}
             <div style={{
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(1.6rem, 4.2vw, 3.4rem)",
+              fontSize: "clamp(1rem, 2.6vw, 2rem)",
               fontWeight: 300, color: gold,
               letterSpacing: "0.60em", textTransform: "uppercase", lineHeight: 1,
               textShadow: `0 0 32px rgba(212,185,106,0.55)`,
@@ -238,7 +239,7 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
           </motion.div>
         )}
       </AnimatePresence>
-
+ 
       {/* ══════════════════════════════════════════════════════════
           FASE 3 (8 – 12s) — Sistema Maestro, letra a letra, grande
       ══════════════════════════════════════════════════════════ */}
@@ -296,61 +297,32 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
           </motion.div>
         )}
       </AnimatePresence>
-
+ 
       {/* ══════════════════════════════════════════════════════════
-          FASE 4 (12 – 16s) — Centro vacío, ADN en su esplendor
-          Solo scroll indicator muy sutil en la parte inferior
+          FASE 4 (15 – 20s) — Centro vacío, ADN en su esplendor
+          Pantalla completamente limpia, el ADN respira solo
+      ══════════════════════════════════════════════════════════ */}
+      {/* Fase 4: nada — pantalla limpia para que el ADN brille solo */}
+ 
+      {/* ══════════════════════════════════════════════════════════
+          FASE 5 (20 – 21.2s) — Transición: el ADN desaparece
+          Pantalla vacía 1.2s mientras el exit del video se completa
+      ══════════════════════════════════════════════════════════ */}
+      {/* Fase 5: pausa silenciosa — el ADN hace su exit blur */}
+ 
+      {/* ══════════════════════════════════════════════════════════
+          FASE 6 (21.2s+) — Frase final, el ADN ya desapareció
       ══════════════════════════════════════════════════════════ */}
       <AnimatePresence>
-        {phase === 4 && (
-          <motion.div key="p4"
+        {phase === 6 && (
+          <motion.div key="p6"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            exit={exit} transition={{ duration: 1.0 }}
-            style={{
-              position: "absolute", inset: 0, zIndex: 20,
-              display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "flex-end",
-              paddingBottom: "2.4rem",
-            }}
-          >
-            {/* Scroll indicator — muy sutil, sin texto, solo pulso */}
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, delay: 0.8 }}
-              onClick={scrollToNext}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}
-            >
-              <div style={{ position: "relative", width: "1px", height: "44px" }}>
-                <div style={{ position: "absolute", inset: 0, width: "1px", background: "rgba(212,185,106,0.12)" }} />
-                <motion.div
-                  animate={{ scaleY: [0, 1, 0] }}
-                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                  style={{
-                    position: "absolute", top: 0, left: 0,
-                    width: "1px", height: "100%",
-                    background: `linear-gradient(to bottom, ${gold}, transparent)`,
-                    transformOrigin: "top",
-                  }}
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ══════════════════════════════════════════════════════════
-          FASE 5 (16s+) — Frase final de cierre, palabra por palabra
-      ══════════════════════════════════════════════════════════ */}
-      <AnimatePresence>
-        {phase === 5 && (
-          <motion.div key="p5"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 1.0 }}
+            transition={{ duration: 1.2 }}
             style={{
               position: "absolute", inset: 0, zIndex: 20,
               display: "flex", flexDirection: "column",
               alignItems: "center", justifyContent: "center",
-              padding: "0 2.5rem", textAlign: "center", gap: "2rem",
+              padding: "0 2.5rem", textAlign: "center", gap: "2.5rem",
             }}
           >
             <p style={{
@@ -360,42 +332,31 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
               color: "#1a3a6b",
               lineHeight: 1.65, maxWidth: "620px",
               letterSpacing: "0.025em",
-              textShadow: "0 2px 24px rgba(26,58,107,0.25)",
+              textShadow: "0 2px 24px rgba(26,58,107,0.20)",
               margin: 0,
             }}>
               <WordReveal text="El comienzo de todo lo extraordinario" stagger={0.13} initialDelay={0.3} />
               <br />
               <WordReveal text="que hay en ti." stagger={0.14} initialDelay={1.25} />
             </p>
-
-            {/* Scroll indicator con texto — solo aparece en la fase final */}
+ 
+            {/* Scroll indicator — solo línea pulsante, sin texto */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.0, delay: 2.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.0, delay: 2.4 }}
               onClick={scrollToNext}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.7rem", cursor: "pointer" }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: "pointer" }}
             >
-              <motion.p
-                animate={{ opacity: [0.3, 0.9, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontSize: "0.58rem", fontWeight: 600,
-                  letterSpacing: "0.30em", color: `rgba(212,185,106,0.78)`,
-                  textTransform: "uppercase", margin: 0,
-                }}
-              >
-                ↓ Desliza para ingresar al portal
-              </motion.p>
-              <div style={{ position: "relative", width: "1px", height: "38px" }}>
-                <div style={{ position: "absolute", inset: 0, width: "1px", background: "rgba(212,185,106,0.14)" }} />
+              <div style={{ position: "relative", width: "1px", height: "44px" }}>
+                <div style={{ position: "absolute", inset: 0, width: "1px", background: "rgba(26,58,107,0.18)" }} />
                 <motion.div
                   animate={{ scaleY: [0, 1, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
                   style={{
-                    position: "absolute", top: 0, left: 0, width: "1px", height: "100%",
-                    background: `linear-gradient(to bottom, ${gold}, transparent)`,
+                    position: "absolute", top: 0, left: 0,
+                    width: "1px", height: "100%",
+                    background: "linear-gradient(to bottom, #1a3a6b, transparent)",
                     transformOrigin: "top",
                   }}
                 />
@@ -407,4 +368,4 @@ export default function HeroSection({ videoSrc = "/videos/Video-hook-mini.mp4" }
     </motion.section>
   );
 }
-
+ 

@@ -1,8 +1,7 @@
 // GENORA · ProblemAndWorkshopsSection · V1
 // 100 % inline styles — Tailwind NO está configurado en este proyecto
 import { useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { motion, useInView } from "framer-motion";
  
 const gold  = "#D4B96A";
 const white = "#F8FAFF";
@@ -332,7 +331,6 @@ function WorkshopCard({ workshop, index }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px 0px" });
   const [hovered, setHovered] = useState(false);
-  const navigate = useNavigate();
  
   return (
     <motion.div
@@ -341,7 +339,7 @@ function WorkshopCard({ workshop, index }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.75, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ scale: 1.025, y: -5 }}
-      onClick={() => navigate(workshop.route)}
+      onClick={() => window.location.href = workshop.route}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       style={{
@@ -500,7 +498,6 @@ function WorkshopCard({ workshop, index }) {
 function WorkshopsSection() {
   const titleRef = useRef(null);
   const inView = useInView(titleRef, { once: true, margin: "-80px 0px" });
-  const navigate = useNavigate();
  
   return (
     <section style={{
@@ -592,7 +589,7 @@ function WorkshopsSection() {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => navigate("/learning")}
+              onClick={() => window.location.href = "/learning"}
               style={{
                 fontFamily: "'League Spartan', 'Rajdhani', sans-serif",
                 fontSize: "clamp(0.75rem, 1.3vw, 0.88rem)",
